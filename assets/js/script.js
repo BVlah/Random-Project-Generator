@@ -9,7 +9,7 @@ fetch(apiUrl).then(function (response) {
       for (var i = 0; i < data.entries.length; i++) {
         var catEntry = data.entries[i].Category;
         // var catEntry2 = data.entries[i+1].
-        console.log("catEntry", catEntry);
+        // console.log("catEntry", catEntry);
 
         catArr.push(catEntry);
       }
@@ -42,5 +42,15 @@ var catCount = function (catArr) {
     }
   });
 
-  console.log(wordCount);
+//   let obj = { you: 100, me: 75, foo: 116, bar: 15 };
+
+  let entries = Object.entries(wordCount);
+  // [["you",100],["me",75],["foo",116],["bar",15]]
+
+  let sorted = entries.sort((a, b) => b[1] - a[1]);
+  // [["bar",15],["me",75],["you",100],["foo",116]]
+  display(sorted);
 };
+
+var display = function(sorted) {
+    console.log(sorted);};
