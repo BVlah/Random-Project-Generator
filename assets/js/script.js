@@ -46,7 +46,7 @@ var storyEl = document.getElementById("story-tile");
 var randUserList = [];
 var apiList = [];
 var APIcount = 3;
-var userCount = 3;
+var userCount = 4;
 // Function to call API API
 var apiSquaredCall = function (choice) {
   fetch("https://api.publicapis.org/entries?category=" + choice).then(function (
@@ -66,7 +66,7 @@ var apiSquaredCall = function (choice) {
         for (i = 0; i < APIcount; i++) {
           apiChoices.push(apiList[Math.floor(Math.random() * apiList.length)]);
         }
-        console.log(apiChoices);
+        displayApiChoices(apiChoices);
       });
     }
   });
@@ -85,14 +85,18 @@ var displayApiChoices = function (apiChoices) {
     aEl.setAttribute("target", "_blank");
     aEl.innerText = apiChoices[i].Link;
     pEl.classList = "subtitle";
-    pEl.innerHTML = "<strong>Name:</strong> " + apiChoices[i].Name + " <br><strong>Description:</strong> " + apiChoices[i].Description + " <br><strong>Link:</strong> "
+    pEl.innerHTML =
+      "<strong>Name:</strong> " +
+      apiChoices[i].Name +
+      " <br><strong>Description:</strong> " +
+      apiChoices[i].Description +
+      " <br><strong>Link:</strong> ";
     pEl.appendChild(aEl);
     apiEl.appendChild(pEl);
-    
   }
 };
-// apisquared("Animals");
-displayApiChoices(sampleApiChoices);
+
+
 // Function to call random user
 var randomUserCall = function (userCount) {
   fetch("https://randomuser.me/api/1.4/?results=" + userCount).then(function (
@@ -109,28 +113,51 @@ var randomUserCall = function (userCount) {
           };
           randUserList.push(randomUserEntry);
         }
-        console.log(randUserList);
+        displayUserChoices(randUserList);
       });
     }
   });
 };
 
-var displayUserChoices = function (randUserList) {};
+var displayUserChoices = function (randUserList) {
+  userEl.innerHTML = "";
+  var titleEl = document.createElement("p");
+  titleEl.classList = "title is-3";
+  titleEl.textContent = "Meet your team!";
+  userEl.appendChild(titleEl);
+  for (let i = 0; i < randUserList.length; i++) {
+      var mediaEl = document.createElement("div");
+      mediaEl.classList = "media is-justify-content-center is-flex-direction-row-reverse";
+      userEl.appendChild(mediaEl);
+      var mediaLeftEl = document.createElement("div");
+      mediaLeftEl.classList = "media-left";
+      mediaEl.appendChild(mediaLeftEl);
+      var figureEl = document.createElement("figure");
+      figureEl.classList = "image is-64x64";
+      mediaLeftEl.appendChild(figureEl);
+      var imgEl = document.createElement("img");
+      imgEl.classList = "is-rounded";
+      imgEl.setAttribute("src", randUserList[i].Image);
+      imgEl.setAttribute("alt", "profile image of" + randUserList[i].Name);
+      figureEl.appendChild(imgEl);
+      var mediaContentEl = document.createElement("div");
+      mediaContentEl.classList = "media-content media-left";
+      mediaEl.appendChild(mediaContentEl);
+      var nameEl = document.createElement("p");
+      nameEl.classList = "title is-5";
+      nameEl.textContent = randUserList[i].Name;
+      mediaContentEl.appendChild(nameEl);
+      var usernameEl = document.createElement("p");
+      usernameEl.classList = "subtitle is-6";
+      usernameEl.textContent = "@" + randUserList[i].Username;
+      mediaContentEl.appendChild(usernameEl);
+  }
+};
 
+//API Calls - Use Sparingly
 // randomUserCall(userCount);
-// Function to call Random text
+// apiSquaredCall("Business");
 
-// var randomText = function() {
-//     fetch("https://api.deepai.org/api/text-generator")
-// }
-// Function deal with output
-// const deepai = require('deepai'); // OR include deepai.min.js as a script tag in your HTML
-
-// deepai.setApiKey('0e5cd2e1-4ffc-42a0-a872-ecc61061a463');
-
-// (async function() {
-//     var resp = await deepai.callStandardApi("text-generator", {
-//             text: "Don't_date_him-gurl",
-//     });
-//     console.log(resp);
-// })()
+//Display Samples - For Testing Purposes
+// displayUserChoices(sampleRandomUsers);
+// displayApiChoices(sampleApiChoices);
