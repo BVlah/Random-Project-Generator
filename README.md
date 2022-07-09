@@ -4,4 +4,3 @@ Showcase or skills by developing an app that utilizes at least 2 APIs and one no
 ## Link
 https://eclevela-1234.github.io/Team-1-Project-1/
 
-*This is the develop branch*
