@@ -26,7 +26,7 @@
                         content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
                         more-or-less normal distribution of letters, as opposed to using 'Content here, content here',
                         making it look like readable English.</p>
-                    <button class="js-modal-trigger button is-primary" data-target="project-modal">Get Started</button>
+                    <button id="start-project" class="js-modal-trigger button is-primary" data-target="project-modal">Get Started</button>
                 </section>
                 <section class="section" id="past-projects">
                     <h2 class="title">Load Previous Projects</h2>
@@ -80,10 +80,10 @@
           <form>
             <h2 class="title">Start your Project!</h2>
             <div class="field">
-              <label class="label" for="modalTeammates">Number of Teammates</label>
+              <label class="label">Number of Teammates</label>
               <div class="control">
                 <div class="select">
-                  <select>
+                  <select id="modalTeammates">
                     <option>0</option>
                     <option>1</option>
                     <option>2</option>
@@ -100,10 +100,10 @@
               </div>
             </div>
             <div class="field">
-              <label class="label" for="modalCategory">Category</label>
+              <label class="label">Category</label>
               <div class="control">
                 <div class="select">
-                  <select>
+                  <select id="modalCategory">
                     <option>Select One</option>
                     <option>Animals</option>
                     <option>Anime</option>
@@ -131,13 +131,13 @@
               </div>
             </div>
             <div class="field">
-              <label class="label" for="modalBackstory">A Few Words for your Backstory</label>
+              <label class="label">A Few Words for your Backstory</label>
               <div class="control">
-                <textarea class="textarea" placeholder="e.g. Insert Example Here"></textarea>
+                <textarea id="modalBackstory" class="textarea" placeholder="e.g. Insert Example Here"></textarea>
               </div>
             </div>
             <div class="control">
-              <button id="project-form-modal" class="button is-primary">Submit</button>
+              <button id="project-form-modal" class="button is-primary" type="Submit">Submit</button>
             </div>
           </form>
         </div>
@@ -155,6 +155,8 @@
         </div>
     </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>  
 <script src="./assets/js/script.js"></script>
 </body>
 

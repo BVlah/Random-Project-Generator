@@ -1,32 +1,38 @@
-var project = {};
+var projects = [];
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Functions to open and close a modal
-  function openModal($el) {
-    $el.classList.add('is-active');
-  }
-  
-  function closeModal($el) {
-    $el.classList.remove('is-active');
-  }
-  
-  // Add a click event to open modal
-  (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
-    var modal = $trigger.dataset.target;
-    var $target = document.getElementById(modal);
-  
-    $trigger.addEventListener('click', () => {
-      openModal($target);
-      console.log($target);
-    });
-  });
-  
-  // Add a click events to close modal
-  (document.querySelectorAll('.modal-background, .modal-close, .button') || []).forEach(($close) => {
-    var $target = $close.closest('.modal');
+// Open Modal
+$("#start-project").on("click", function() {
+    $('#project-modal')[0].classList.add('is-active');
+});
 
-    $close.addEventListener('click', () => {
-      closeModal($target);
-    });
-  });
+
+ // Submit Button in Modal Clicked
+ $("#project-form-modal").click(function(event) {
+    event.preventDefault()
+    // get form values
+    var projectTeammates = $("#modalTeammates").val();
+    var projectCategory = $("#modalCategory").val();
+    var projectBackstory = $("#modalBackstory").val();
+
+    if (projectCategory != "Select One" && projectBackstory && projectTeammates) {
+        
+      // close modal
+      $("#project-modal")[0].classList.remove('is-active');
+
+      // save in projects array
+      projects.push({
+        teammates: projectTeammates,
+        category: projectCategory,
+        backstory: projectBackstory
+      });
+      console.log(projects);
+    }
+    else alert("Please fill out all info!");
+ });
+
+// Add additional click events to close modal
+$('.modal-background, .modal-close').click(function(event) {
+    event.preventDefault();
+
+    $("#project-modal")[0].classList.remove('is-active');
 });
