@@ -3,6 +3,9 @@ var projects = [];
 // Open Modal
 $("#start-project").on("click", function () {
   $("#project-modal")[0].classList.add("is-active");
+
+  // Clear previous values
+  $("#modalTeammates, #modalCategory, #modalBackstory").val("");
 });
 
 // Submit Button in Modal Clicked
@@ -37,10 +40,6 @@ $(".modal-background, .modal-close").click(function (event) {
   $("#project-modal")[0].classList.remove("is-active");
 });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
 var sampleRandomUsers = [
   {
     Name: "Willibald Mast",
@@ -207,10 +206,5 @@ var displayUserChoices = function (randUserList) {
 // apiSquaredCall("Business");
 
 // Display Samples - For Testing Purposes
-<<<<<<< HEAD
-displayUserChoices(sampleRandomUsers);
-displayApiChoices(sampleApiChoices);
-=======
 // displayUserChoices(sampleRandomUsers);
 // displayApiChoices(sampleApiChoices);
->>>>>>> develop
