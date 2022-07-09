@@ -1,7 +1,12 @@
+
+form h2 {
+    text-align: center;
+=======
 a {
     text-decoration: none;
 }
 
 a:hover {
     color: gray;
+
 }
