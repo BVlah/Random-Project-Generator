@@ -1,56 +1,136 @@
-var apiUrl = "https://api.publicapis.org/entries";
+var sampleRandomUsers = [
+  {
+    Name: "Willibald Mast",
+    Age: 29,
+    Username: "orangetiger890",
+    Image: "https://randomuser.me/api/portraits/men/65.jpg",
+  },
+  {
+    Name: "Harry Guerin",
+    Age: 45,
+    Username: "yellowlion888",
+    Image: "https://randomuser.me/api/portraits/men/50.jpg",
+  },
+  {
+    Name: "Tracey Steward",
+    Age: 47,
+    Username: "bigbutterfly197",
+    Image: "https://randomuser.me/api/portraits/women/23.jpg",
+  },
+];
+var sampleApiChoices = [
+  {
+    Name: "RandomDog",
+    Description: "Random pictures of dogs",
+    Link: "https://random.dog/woof.json",
+  },
+  {
+    Name: "Cat Facts",
+    Description: "Daily cat facts",
+    Link: "https://alexwohlbruck.github.io/cat-facts/",
+  },
+  {
+    Name: "The Dog",
+    Description:
+      "A public service all about Dogs, free to use when making your fancy new App, Website or Service",
+    Link: "https://thedogapi.com/",
+  },
+];
 
-fetch(apiUrl).then(function (response) {
-  if (response.ok) {
-    response.json().then(function (data) {
-      console.log(data);
-      console.log(data.entries[0].Category);
-      var catArr = [];
-      for (var i = 0; i < data.entries.length; i++) {
-        var catEntry = data.entries[i].Category;
-        // var catEntry2 = data.entries[i+1].
-        // console.log("catEntry", catEntry);
+// select elements to display
+var userEl = document.getElementById("user-tile");
+var apiEl = document.getElementById("api-tile");
+var storyEl = document.getElementById("story-tile");
 
-        catArr.push(catEntry);
-      }
-
-      catCount(catArr);
-      // // console.log("whole enchilada", catArr);
-      // var catSet = new Set(catArr);
-      // var newCatArr = Array.from(catSet);
-      // console.log ("newCatArr", newCatArr);
-
-      // // for (i=0; i<catArr.length; i++) {
-      // //     var item =
-      // // }
-    });
-  }
-});
-
-// let text =
-//       "Some of the biggest and most expensive transportation projects in the world have involved building bridges. Bridges are crucial links that carry cars, trucks and trains across bodies of water, mountain gorges or other roads. As a result, they are one of the most important aspects of civil engineering and are subject to intense scrutiny, especially when they collapse. Bridge collapses can be tragic events, leading to loss of life and serious property damage. That is why bridge engineers, designers and builders must always take their jobs very seriously. The best way for them to prevent these accidents is to understand why bridges collapse in the first place. Understanding bridge collapses can lead to major changes in the design, construction and safety of future building projects. The following are main reasons why bridges fall.";
-//     text = text.replace(/[.,]/g, "");
-//     text = text.toLocaleLowerCase();
-
-var catCount = function (catArr) {
-  const wordArray = catArr;
-  const wordCount = {};
-  wordArray.forEach((item) => {
-    if (wordCount[item] == null) wordCount[item] = 1;
-    else {
-      wordCount[item] += 1;
+// global variables
+var randUserList = [];
+var apiList = [];
+var APIcount = 3;
+var userCount = 3;
+// Function to call API API
+var apiSquaredCall = function (choice) {
+  fetch("https://api.publicapis.org/entries?category=" + choice).then(function (
+    response
+  ) {
+    if (response.ok) {
+      response.json().then(function (data) {
+        for (var i = 0; i < data.entries.length; i++) {
+          var apiEntry = {
+            Name: data.entries[i].API,
+            Description: data.entries[i].Description,
+            Link: data.entries[i].Link,
+          };
+          apiList.push(apiEntry);
+        }
+        var apiChoices = [];
+        for (i = 0; i < APIcount; i++) {
+          apiChoices.push(apiList[Math.floor(Math.random() * apiList.length)]);
+        }
+        console.log(apiChoices);
+      });
     }
   });
-
-//   let obj = { you: 100, me: 75, foo: 116, bar: 15 };
-
-  let entries = Object.entries(wordCount);
-  // [["you",100],["me",75],["foo",116],["bar",15]]
-
-  let sorted = entries.sort((a, b) => b[1] - a[1]);
-  // [["bar",15],["me",75],["you",100],["foo",116]]
-  display(sorted);
 };
 
-var display = function(sorted) {
-    console.log(sorted);};
+var displayApiChoices = function (apiChoices) {
+  apiEl.innerHTML = "";
+  var titleEl = document.createElement("p");
+  titleEl.classList = "title";
+  titleEl.textContent = "These APIs should do the trick!";
+  apiEl.appendChild(titleEl);
+  for (let i = 0; i < apiChoices.length; i++) {
+    var pEl = document.createElement("p");
+    var aEl = document.createElement("a");
+    aEl.setAttribute("href", apiChoices[i].Link);
+    aEl.setAttribute("target", "_blank");
+    aEl.innerText = apiChoices[i].Link;
+    pEl.classList = "subtitle";
+    pEl.innerHTML = "<strong>Name:</strong> " + apiChoices[i].Name + " <br><strong>Description:</strong> " + apiChoices[i].Description + " <br><strong>Link:</strong> "
+    pEl.appendChild(aEl);
+    apiEl.appendChild(pEl);
+    
+  }
+};
+// apisquared("Animals");
+displayApiChoices(sampleApiChoices);
+// Function to call random user
+var randomUserCall = function (userCount) {
+  fetch("https://randomuser.me/api/1.4/?results=" + userCount).then(function (
+    response
+  ) {
+    if (response.ok) {
+      response.json().then(function (data) {
+        for (var i = 0; i < data.results.length; i++) {
+          var randomUserEntry = {
+            Name: data.results[i].name.first + " " + data.results[i].name.last,
+            Age: data.results[i].dob.age,
+            Username: data.results[i].login.username,
+            Image: data.results[i].picture.large,
+          };
+          randUserList.push(randomUserEntry);
+        }
+        console.log(randUserList);
+      });
+    }
+  });
+};
+
+var displayUserChoices = function (randUserList) {};
+
+// randomUserCall(userCount);
+// Function to call Random text
+
+// var randomText = function() {
+//     fetch("https://api.deepai.org/api/text-generator")
+// }
+// Function deal with output
+// const deepai = require('deepai'); // OR include deepai.min.js as a script tag in your HTML
+
+// deepai.setApiKey('0e5cd2e1-4ffc-42a0-a872-ecc61061a463');
+
+// (async function() {
+//     var resp = await deepai.callStandardApi("text-generator", {
+//             text: "Don't_date_him-gurl",
+//     });
+//     console.log(resp);
+// })()

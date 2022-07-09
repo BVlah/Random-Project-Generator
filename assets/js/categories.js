@@ -100,4 +100,20 @@ const countryList = [
   "United States",
 ];
 
-var DeepAPIKey = "16c2053f-5a8e-48a3-a138-401c3701ad2c";
+var choices = [
+  {
+      "Name": "RandomDog",
+      "Description": "Random pictures of dogs",
+      "Link": "https://random.dog/woof.json"
+  },
+  {
+      "Name": "Cat Facts",
+      "Description": "Daily cat facts",
+      "Link": "https://alexwohlbruck.github.io/cat-facts/"
+  },
+  {
+      "Name": "The Dog",
+      "Description": "A public service all about Dogs, free to use when making your fancy new App, Website or Service",
+      "Link": "https://thedogapi.com/"
+  }
+]
