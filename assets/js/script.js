@@ -66,6 +66,8 @@ var apiSquaredCall = function (choice) {
         var apiChoices = [];
         for (i = 0; i < APIcount; i++) {
           apiChoices.push(apiList[Math.floor(Math.random() * apiList.length)]);
+
+          //add conditional to check for duplicates
         }
         displayApiChoices(apiChoices);
       });
