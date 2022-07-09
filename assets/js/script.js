@@ -47,6 +47,7 @@ var randUserList = [];
 var apiList = [];
 var APIcount = 3;
 var userCount = 4;
+var choice = "business";
 // Function to call API API
 var apiSquaredCall = function (choice) {
   fetch("https://api.publicapis.org/entries?category=" + choice).then(function (
@@ -76,23 +77,24 @@ var displayApiChoices = function (apiChoices) {
   apiEl.innerHTML = "";
   var titleEl = document.createElement("p");
   titleEl.classList = "title";
-  titleEl.textContent = "These APIs should do the trick!";
+  titleEl.textContent = "These APIs are perfect for your " + choice + " project!";
   apiEl.appendChild(titleEl);
   for (let i = 0; i < apiChoices.length; i++) {
-    var pEl = document.createElement("p");
+    var divEl = document.createElement("article");
+    divEl.classList = "m-"
+    var pHeadEl = document.createElement("p");
+    var pSubEl = document.createElement("p");
     var aEl = document.createElement("a");
     aEl.setAttribute("href", apiChoices[i].Link);
     aEl.setAttribute("target", "_blank");
-    aEl.innerText = apiChoices[i].Link;
-    pEl.classList = "subtitle";
-    pEl.innerHTML =
-      "<strong>Name:</strong> " +
-      apiChoices[i].Name +
-      " <br><strong>Description:</strong> " +
-      apiChoices[i].Description +
-      " <br><strong>Link:</strong> ";
-    pEl.appendChild(aEl);
-    apiEl.appendChild(pEl);
+    pHeadEl.classList = "title";
+    pHeadEl.innerHTML = apiChoices[i].Name;
+    pSubEl.classList = "subtitle";
+    pSubEl.textContent = apiChoices[i].Description;
+    aEl.appendChild(pHeadEl);
+    divEl.appendChild(aEl);
+    divEl.appendChild(pSubEl);
+    apiEl.appendChild(divEl);
   }
 };
 
@@ -158,6 +160,6 @@ var displayUserChoices = function (randUserList) {
 // randomUserCall(userCount);
 // apiSquaredCall("Business");
 
-//Display Samples - For Testing Purposes
-// displayUserChoices(sampleRandomUsers);
-// displayApiChoices(sampleApiChoices);
+// Display Samples - For Testing Purposes
+displayUserChoices(sampleRandomUsers);
+displayApiChoices(sampleApiChoices);
