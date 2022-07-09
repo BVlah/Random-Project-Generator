@@ -5,7 +5,8 @@ $("#start-project").on("click", function () {
   $("#project-modal")[0].classList.add("is-active");
 
   // Clear previous values
-  $("#modalTeammates, #modalCategory, #modalBackstory").val("");
+  $("#modalTeammates, #modalBackstory").val("");
+  $("#modalCategory").val("Select One");
 });
 
 // Submit Button in Modal Clicked
