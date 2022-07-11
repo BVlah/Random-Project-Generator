@@ -98,11 +98,11 @@ var displayProjectName = function(projectTitle) {
   // textAreaEl.classList = "textarea"
   // textAreaEl.setAttribute("rows", "10"); 
   titleEl.classList = "title is-3";
-  pEl.classList = "block";
-  subtitleEl.classList = "subtitle is-4"
+  pEl.classList = "subtitle is-5";
+  subtitleEl.classList = "subtitle is-5"
   titleEl.textContent = "About " + projectTitle;
   pEl.innerHTML = "Use the list of random users to help visualize your user story. <br> <br>Use the list of APIs to formulate a high-tech solution."
-  subtitleEl.innerHTML = "Use the area below for <strong>your</strong> ideas!"
+  subtitleEl.textContent = "Then, use the area below to stash your ideas!"
   storyEl.appendChild(titleEl);
   storyEl.appendChild(pEl);
   storyEl.appendChild(subtitleEl);
@@ -113,7 +113,7 @@ var displayTileHeader = function (choice) {
   currentProject.subject = choice;
   apiEl.innerHTML = "";
   var titleEl = document.createElement("p");
-  titleEl.classList = "title is-3";
+  titleEl.classList = "title is-5";
   titleEl.textContent =
     "These APIs are perfect for your " + choice + " project!";
   apiEl.appendChild(titleEl);
