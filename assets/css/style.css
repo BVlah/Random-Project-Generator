@@ -12,3 +12,8 @@ a {
 a:hover {
     color: gray;
 }
+
+.loadButton {
+    width: 66%;
+    overflow-wrap: break-word; 
+}

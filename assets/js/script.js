@@ -8,6 +8,7 @@ textAreaEl.classList = "textarea"
 textAreaEl.setAttribute("rows", "10"); 
 
 // select elements to display
+var liveProject = "";
 var buttonPanelEl = document.getElementById("button-area");
 var userEl = document.getElementById("user-tile");
 var apiEl = document.getElementById("api-tile");
@@ -18,13 +19,31 @@ var loadProjectButtons = function () {
   buttonPanelEl.innerHTML = "";
   if (projects) {
     for (var i = 0; i < projects.length; i++) {
-      var newButton = document.createElement("button");
-      newButton.classList = "button is-primary m-2 is-medium";
-      newButton.textContent = projects[i].title;
-      buttonPanelEl.appendChild(newButton);
+      var buttonDivEl = document.createElement("div");
+      buttonDivEl.classList = "buttons"
+      buttonPanelEl.appendChild(buttonDivEl);
+
+      var newButtonEl = document.createElement("button");
+      newButtonEl.classList = "button is-primary m-2 is-medium loadButton";
+      newButtonEl.textContent = projects[i].title;
+      buttonDivEl.appendChild(newButtonEl);
+
+      var deleteButtonEl = document.createElement("button");
+      deleteButtonEl.classList = "button is-danger m-2 is-medium deleteButton";
+      deleteButtonEl.innerHTML = "<span class='icon is-small'><i class='fa-solid fa-trash-can'></i></i>";
+      buttonDivEl.appendChild(deleteButtonEl);
     }
-  }
+  } else projects = [];
 };
+
+$(".deleteButton").on("click", function() {
+  console.log($(this));
+  console.log("********");
+  // var deleteButton = $(this).closest("button");
+  // console.log(deleteButton);
+  // $(this).previousSibling().remove();
+});
+  
 
 // Open Modal
 $("#start-project").on("click", function () {
@@ -50,6 +69,10 @@ $("#project-form-modal").click(function (event) {
     randomUserCall(projectTeammates);
     displayProjectName(projectTitle)
     apiSquaredCall(projectCategory);
+
+    // update project type
+    liveProject = "new";
+
   } else alert("Please fill out all info!");
 });
 
@@ -60,6 +83,8 @@ $(".modal-background, .modal-close").click(function (event) {
   $("#project-modal")[0].classList.remove("is-active");
 });
 
+
+// API API Call
 var apiSquaredCall = function (choice) {
   var apiList = [];
   fetch("https://api.publicapis.org/entries?category=" + choice).then(function (
@@ -89,6 +114,7 @@ var apiSquaredCall = function (choice) {
   });
 };
 
+// Project Name & Story Display
 var displayProjectName = function(projectTitle) {
   currentProject.title = projectTitle;
   storyEl.innerHTML = "";
@@ -109,6 +135,7 @@ var displayProjectName = function(projectTitle) {
   storyEl.appendChild(textAreaEl);
 };
 
+// Display API header
 var displayTileHeader = function (choice) {
   currentProject.subject = choice;
   apiEl.innerHTML = "";
@@ -118,6 +145,8 @@ var displayTileHeader = function (choice) {
     "These APIs are perfect for your " + choice + " project!";
   apiEl.appendChild(titleEl);
 };
+
+// Display API Choices
 var displayApiChoices = function (apiChoices) {
   currentProject.apis = apiChoices;
   for (let i = 0; i < apiChoices.length; i++) {
@@ -163,6 +192,7 @@ var randomUserCall = function (userCount) {
   });
 };
 
+// Display Users
 var displayUserChoices = function (randUserList) {
   currentProject.users = randUserList;
   userEl.innerHTML = "";
@@ -199,30 +229,47 @@ var displayUserChoices = function (randUserList) {
     mediaContentEl.appendChild(usernameEl);
   }
 };
+
+// Save Project to Local Storage
 var saveProject = function () {
   currentProject.text = textAreaEl.value;
-  if (projects) {
-  for (var i = 0; i < projects.length; i++) {
-    if (projects[i].title === currentProject.title) {
-      var check = true;
-      projects.splice(i, 1, currentProject);
+
+  if (liveProject = "new") {
+      projects.push(currentProject);
+  } else if (liveProject = "existing") {
+    for (var i = 0; i < projects.length; i++) {
+      if (projects[i].title === currentProject.title) {
+        projects.splice(i, 1, currentProject);
+      }
     }
   }
-  if (!check) {
-    projects.push(currentProject);
-  }
-
   localStorage.setItem("projects", JSON.stringify(projects));
   loadProjectButtons();
-  } else {
-    var projects = [];
-    projects.push(currentProject);
-    localStorage.setItem("projects", JSON.stringify(projects));
-    loadProjectButtons();
-  };
 };
+  // if (projects) {
+  // for (var i = 0; i < projects.length; i++) {
+  //   if (projects[i].title === currentProject.title) {
+  //     var check = true;
+  //     projects.splice(i, 1, currentProject);
+  //   }
+  // }
+  // console.log(check);
+  // if (!check) {
+  //   
+  // }
 
+  // localStorage.setItem("projects", JSON.stringify(projects));
+  // loadProjectButtons();
+  // } else {
+  //   var projects = [];
+  //   projects.push(currentProject);
+  //   localStorage.setItem("projects", JSON.stringify(projects));
+  //   loadProjectButtons();
+  // };
+
+// Load Project from Local Storage
 var selectProject = function (event) {
+  liveProject = "existing";
   var selectedButton = event.target.textContent;
   console.log(selectedButton);
   for (var i = 0; i < projects.length; i++) {

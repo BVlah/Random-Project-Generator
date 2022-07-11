@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Random Project Generator</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
   <link rel="stylesheet" href="./assets/css/style.css">
 
 </head>
@@ -27,15 +28,13 @@
           <p class="block">Use this app to help design your first coding project. This app will generate hypothetical
             users, a list of free APIs, an inspirational quote, and a workspace for your thoughts. Let's go!</p>
           <div class="block mr-6">
-            <button id="start-project" class="js-modal-trigger button is-success m-2 is-medium is-fullwidth"
-              data-target="project-modal">Get
-              Started</button>
-          </div>
-          <div class="block ml-6">
-            <button id="save" class="button is-link m-2 is-medium is-fullwidth">Save Project</button>
+            <button id="start-project" class="js-modal-trigger button is-link m-2 is-medium is-fullwidth" data-target="project-modal">Get Started</button>
           </div>
           <div class="block mr-6">
-            <button id="save" class="button is-danger m-2 is-medium is-fullwidth">Delete Project</button>
+            <button id="save" class="button is-success m-2 is-medium is-fullwidth">Save Project</button>
+          </div>
+          <div class="block mr-6">
+            <button id="delete" class="button is-danger m-2 is-medium is-fullwidth">Delete Project</button>
           </div>
         </section>
         <section class="section" id="past-projects">
@@ -43,10 +42,10 @@
           <p class="block">You "worked" hard on these! Click a button to show them off!</p>
           <!-- These will be dynamically generated -->
           <div id="button-area">
-            <button class="button is-link m-2">Project 1</button>
+            <!-- <button class="button is-link m-2">Project 1</button>
             <button class="button is-primary m-2">Project 2</button>
             <button class="button is-info m-2">Project 3</button>
-            <button class="button is-success m-2">Project 4</button>
+            <button class="button is-success m-2">Project 4</button> -->
           </div>
         </section>
       </div>
