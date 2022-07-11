@@ -128,8 +128,7 @@ var apiSquaredCall = function (choice) {
 
           //add conditional to check for duplicates
         }
-        currentProject.subject = choice;
-        currentProject.apis = apiChoices;
+
         displayTileHeader(choice);
         displayApiChoices(apiChoices);
       });
@@ -138,6 +137,7 @@ var apiSquaredCall = function (choice) {
 };
 
 var displayTileHeader = function (choice) {
+  currentProject.subject = choice;
   apiEl.innerHTML = "";
   var titleEl = document.createElement("p");
   titleEl.classList = "title is-3";
@@ -146,6 +146,7 @@ var displayTileHeader = function (choice) {
   apiEl.appendChild(titleEl);
 };
 var displayApiChoices = function (apiChoices) {
+  currentProject.apis = apiChoices;
   for (let i = 0; i < apiChoices.length; i++) {
     var divEl = document.createElement("article");
     divEl.classList = "my-2";
@@ -182,7 +183,7 @@ var randomUserCall = function (userCount) {
           };
           randUserList.push(randomUserEntry);
         }
-        currentProject.users = randUserList;
+
         displayUserChoices(randUserList);
       });
     }
@@ -190,6 +191,7 @@ var randomUserCall = function (userCount) {
 };
 
 var displayUserChoices = function (randUserList) {
+  currentProject.users = randUserList;
   userEl.innerHTML = "";
   var titleEl = document.createElement("p");
   titleEl.classList = "title is-3";
@@ -225,7 +227,16 @@ var displayUserChoices = function (randUserList) {
   }
 };
 var saveProject = function () {
-  projects.push(currentProject);
+  for (var i = 0; i < projects.length; i++) {
+    var checkProject = currentProject;
+    if (projects[i].title === currentProject.title) {
+      var check = true;
+      projects.splice(i, 1, checkProject);
+    }
+  }
+  if (!check) {
+    projects.push(checkProject);
+  }
   localStorage.setItem("projects", JSON.stringify(projects));
   loadProjectButtons();
 };
