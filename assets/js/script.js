@@ -86,13 +86,14 @@ var apiEl = document.getElementById("api-tile");
 var storyEl = document.getElementById("story-tile");
 
 // global variables
-var randUserList = [];
-var apiList = [];
-var APIcount = 3;
-var userCount = 4;
-var choice = "business";
+// var randUserList = [];
+// var apiList = [];
+// var APIcount = 3;
+// var userCount = 4;
+// var choice = "business";
 // Function to call API API
 var apiSquaredCall = function (choice) {
+  var apiList = [];
   fetch("https://api.publicapis.org/entries?category=" + choice).then(function (
     response
   ) {
@@ -107,24 +108,27 @@ var apiSquaredCall = function (choice) {
           apiList.push(apiEntry);
         }
         var apiChoices = [];
-        for (i = 0; i < APIcount; i++) {
+        for (i = 0; i < 3; i++) {
           apiChoices.push(apiList[Math.floor(Math.random() * apiList.length)]);
 
           //add conditional to check for duplicates
         }
+        displayTileHeader(choice);
         displayApiChoices(apiChoices);
       });
     }
   });
 };
 
-var displayApiChoices = function (apiChoices) {
+var displayTileHeader = function (choice) {
   apiEl.innerHTML = "";
   var titleEl = document.createElement("p");
   titleEl.classList = "title";
   titleEl.textContent =
     "These APIs are perfect for your " + choice + " project!";
   apiEl.appendChild(titleEl);
+};
+var displayApiChoices = function (apiChoices) {
   for (let i = 0; i < apiChoices.length; i++) {
     var divEl = document.createElement("article");
     divEl.classList = "m-";
@@ -146,6 +150,7 @@ var displayApiChoices = function (apiChoices) {
 
 // Function to call random user
 var randomUserCall = function (userCount) {
+  var randUserList = [];
   fetch("https://randomuser.me/api/1.4/?results=" + userCount).then(function (
     response
   ) {
