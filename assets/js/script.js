@@ -1,5 +1,20 @@
-var currentProject = {};
+var projects = [];
+var buttonPanelEl = document.getElementById("button-area");
 
+var loadProjectButtons = function () {
+  projects = JSON.parse(localStorage.getItem("projects"));
+  buttonPanelEl.innerHTML = "";
+  if (projects) {
+    for (var i = 0; i < projects.length; i++) {
+      var newButton = document.createElement("button");
+      newButton.classList = "button is-primary m-2 is-medium";
+      newButton.textContent = projects[i].title;
+      buttonPanelEl.appendChild(newButton);
+    }
+  }
+};
+var currentProject = {};
+var saveButtonEl = document.getElementById("save");
 // Open Modal
 $("#start-project").on("click", function () {
   $("#project-modal")[0].classList.add("is-active");
@@ -30,7 +45,7 @@ $("#project-form-modal").click(function (event) {
     randomUserCall(projectTeammates);
     currentProject.title = projectTitle;
     // console.log(currentProject);
-    // apiSquaredCall(projectCategory);
+    apiSquaredCall(projectCategory);
   } else alert("Please fill out all info!");
 });
 
@@ -209,7 +224,26 @@ var displayUserChoices = function (randUserList) {
     mediaContentEl.appendChild(usernameEl);
   }
 };
+var saveProject = function () {
+  projects.push(currentProject);
+  localStorage.setItem("projects", JSON.stringify(projects));
+  loadProjectButtons();
+};
 
+var selectProject = function (event) {
+  var selectedButton = event.target.textContent;
+  console.log(selectedButton);
+  for (var i = 0; i < projects.length; i++) {
+    if (selectedButton === projects[i].title) {
+      displayTileHeader(projects[i].subject);
+      displayApiChoices(projects[i].apis);
+      displayUserChoices(projects[i].users);
+    }
+  }
+};
+loadProjectButtons();
+saveButtonEl.addEventListener("click", saveProject);
+buttonPanelEl.addEventListener("click", selectProject);
 //API Calls - Use Sparingly
 // randomUserCall(userCount);
 // apiSquaredCall("Business");
