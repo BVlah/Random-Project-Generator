@@ -1,11 +1,11 @@
-var projects = [];
+var currentProject = {};
 
 // Open Modal
 $("#start-project").on("click", function () {
   $("#project-modal")[0].classList.add("is-active");
 
   // Clear previous values
-  $("#modalTeammates, #modalBackstory").val("");
+  $("#modalTeammates, #modalProjectTitle").val("");
   $("#modalCategory").val("Select One");
 });
 
@@ -15,9 +15,9 @@ $("#project-form-modal").click(function (event) {
   // get form values
   var projectTeammates = $("#modalTeammates").val();
   var projectCategory = $("#modalCategory").val();
-  var projectBackstory = $("#modalBackstory").val();
+  var projectTitle = $("#modalProjectTitle").val();
 
-  if (projectCategory != "Select One" && projectBackstory && projectTeammates) {
+  if (projectCategory != "Select One" && projectTitle && projectTeammates) {
     // close modal
     $("#project-modal")[0].classList.remove("is-active");
 
@@ -28,9 +28,9 @@ $("#project-form-modal").click(function (event) {
     //   backstory: projectBackstory
     // });
     randomUserCall(projectTeammates);
-    apiSquaredCall(projectCategory);
-
-    console.log(projectBackstory);
+    currentProject.title = projectTitle;
+    // console.log(currentProject);
+    // apiSquaredCall(projectCategory);
   } else alert("Please fill out all info!");
 });
 
@@ -113,6 +113,8 @@ var apiSquaredCall = function (choice) {
 
           //add conditional to check for duplicates
         }
+        currentProject.subject = choice;
+        currentProject.apis = apiChoices;
         displayTileHeader(choice);
         displayApiChoices(apiChoices);
       });
@@ -123,7 +125,7 @@ var apiSquaredCall = function (choice) {
 var displayTileHeader = function (choice) {
   apiEl.innerHTML = "";
   var titleEl = document.createElement("p");
-  titleEl.classList = "title";
+  titleEl.classList = "title is-3";
   titleEl.textContent =
     "These APIs are perfect for your " + choice + " project!";
   apiEl.appendChild(titleEl);
@@ -131,15 +133,15 @@ var displayTileHeader = function (choice) {
 var displayApiChoices = function (apiChoices) {
   for (let i = 0; i < apiChoices.length; i++) {
     var divEl = document.createElement("article");
-    divEl.classList = "m-";
+    divEl.classList = "my-2";
     var pHeadEl = document.createElement("p");
     var pSubEl = document.createElement("p");
     var aEl = document.createElement("a");
     aEl.setAttribute("href", apiChoices[i].Link);
     aEl.setAttribute("target", "_blank");
-    pHeadEl.classList = "title";
+    pHeadEl.classList = "title is-4";
     pHeadEl.innerHTML = apiChoices[i].Name;
-    pSubEl.classList = "subtitle";
+    pSubEl.classList = "subtitle is-5";
     pSubEl.textContent = apiChoices[i].Description;
     aEl.appendChild(pHeadEl);
     divEl.appendChild(aEl);
@@ -165,6 +167,7 @@ var randomUserCall = function (userCount) {
           };
           randUserList.push(randomUserEntry);
         }
+        currentProject.users = randUserList;
         displayUserChoices(randUserList);
       });
     }
