@@ -1,6 +1,12 @@
 var projects = [];
+var currentProject = {};
 var buttonPanelEl = document.getElementById("button-area");
 
+// select elements to display
+var userEl = document.getElementById("user-tile");
+var apiEl = document.getElementById("api-tile");
+var storyEl = document.getElementById("story-tile");
+var saveButtonEl = document.getElementById("save");
 var loadProjectButtons = function () {
   projects = JSON.parse(localStorage.getItem("projects"));
   buttonPanelEl.innerHTML = "";
@@ -13,8 +19,7 @@ var loadProjectButtons = function () {
     }
   }
 };
-var currentProject = {};
-var saveButtonEl = document.getElementById("save");
+
 // Open Modal
 $("#start-project").on("click", function () {
   $("#project-modal")[0].classList.add("is-active");
@@ -36,15 +41,8 @@ $("#project-form-modal").click(function (event) {
     // close modal
     $("#project-modal")[0].classList.remove("is-active");
 
-    // save in projects array
-    // projects.push({
-    //   teammates: projectTeammates,
-    //   category: projectCategory,
-    //   backstory: projectBackstory
-    // });
     randomUserCall(projectTeammates);
-    currentProject.title = projectTitle;
-    // console.log(currentProject);
+    displayProjectName(projectTitle)
     apiSquaredCall(projectCategory);
   } else alert("Please fill out all info!");
 });
@@ -56,57 +54,6 @@ $(".modal-background, .modal-close").click(function (event) {
   $("#project-modal")[0].classList.remove("is-active");
 });
 
-var sampleRandomUsers = [
-  {
-    Name: "Willibald Mast",
-    Age: 29,
-    Username: "orangetiger890",
-    Image: "https://randomuser.me/api/portraits/men/65.jpg",
-  },
-  {
-    Name: "Harry Guerin",
-    Age: 45,
-    Username: "yellowlion888",
-    Image: "https://randomuser.me/api/portraits/men/50.jpg",
-  },
-  {
-    Name: "Tracey Steward",
-    Age: 47,
-    Username: "bigbutterfly197",
-    Image: "https://randomuser.me/api/portraits/women/23.jpg",
-  },
-];
-var sampleApiChoices = [
-  {
-    Name: "RandomDog",
-    Description: "Random pictures of dogs",
-    Link: "https://random.dog/woof.json",
-  },
-  {
-    Name: "Cat Facts",
-    Description: "Daily cat facts",
-    Link: "https://alexwohlbruck.github.io/cat-facts/",
-  },
-  {
-    Name: "The Dog",
-    Description:
-      "A public service all about Dogs, free to use when making your fancy new App, Website or Service",
-    Link: "https://thedogapi.com/",
-  },
-];
-
-// select elements to display
-var userEl = document.getElementById("user-tile");
-var apiEl = document.getElementById("api-tile");
-var storyEl = document.getElementById("story-tile");
-
-// global variables
-// var randUserList = [];
-// var apiList = [];
-// var APIcount = 3;
-// var userCount = 4;
-// var choice = "business";
-// Function to call API API
 var apiSquaredCall = function (choice) {
   var apiList = [];
   fetch("https://api.publicapis.org/entries?category=" + choice).then(function (
@@ -134,6 +81,23 @@ var apiSquaredCall = function (choice) {
       });
     }
   });
+};
+
+var displayProjectName = function(projectTitle) {
+  currentProject.title = projectTitle;
+  storyEl.innerHTML = "";
+  var titleEl = document.createElement("p");
+  var pEl = document.createElement("p");
+  var textAreaEl = document.createElement("textarea");
+  textAreaEl.classList = "textarea"
+  textAreaEl.setAttribute("rows", "15"); 
+  titleEl.classList = "title is-3";
+  pEl.classList = "subtitle is-5";
+  titleEl.textContent = "About " + projectTitle;
+  pEl.textContent = "Use the area below for your ideas:"
+  storyEl.appendChild(titleEl);
+  storyEl.appendChild(pEl);
+  storyEl.appendChild(textAreaEl);
 };
 
 var displayTileHeader = function (choice) {
@@ -227,18 +191,25 @@ var displayUserChoices = function (randUserList) {
   }
 };
 var saveProject = function () {
+  if (projects) {
   for (var i = 0; i < projects.length; i++) {
-    var checkProject = currentProject;
     if (projects[i].title === currentProject.title) {
       var check = true;
-      projects.splice(i, 1, checkProject);
+      projects.splice(i, 1, currentProject);
     }
   }
   if (!check) {
-    projects.push(checkProject);
+    projects.push(currentProject);
   }
+
   localStorage.setItem("projects", JSON.stringify(projects));
   loadProjectButtons();
+  } else {
+    var projects = [];
+    projects.push(currentProject);
+    localStorage.setItem("projects", JSON.stringify(projects));
+    loadProjectButtons();
+  };
 };
 
 var selectProject = function (event) {
@@ -249,6 +220,7 @@ var selectProject = function (event) {
       displayTileHeader(projects[i].subject);
       displayApiChoices(projects[i].apis);
       displayUserChoices(projects[i].users);
+      displayProjectName(projects[i].title);
     }
   }
 };

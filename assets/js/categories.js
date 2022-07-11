@@ -116,4 +116,25 @@ var choices = [
       "Description": "A public service all about Dogs, free to use when making your fancy new App, Website or Service",
       "Link": "https://thedogapi.com/"
   }
-]
+];
+
+var sampleRandomUsers = [
+  {
+    Name: "Willibald Mast",
+    Age: 29,
+    Username: "orangetiger890",
+    Image: "https://randomuser.me/api/portraits/men/65.jpg",
+  },
+  {
+    Name: "Harry Guerin",
+    Age: 45,
+    Username: "yellowlion888",
+    Image: "https://randomuser.me/api/portraits/men/50.jpg",
+  },
+  {
+    Name: "Tracey Steward",
+    Age: 47,
+    Username: "bigbutterfly197",
+    Image: "https://randomuser.me/api/portraits/women/23.jpg",
+  },
+];
