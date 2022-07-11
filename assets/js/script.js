@@ -1,8 +1,14 @@
+// global project variables
 var projects = [];
 var currentProject = {};
-var buttonPanelEl = document.getElementById("button-area");
+
+// Textarea declarations
+var textAreaEl = document.createElement("textarea");
+textAreaEl.classList = "textarea"
+textAreaEl.setAttribute("rows", "10"); 
 
 // select elements to display
+var buttonPanelEl = document.getElementById("button-area");
 var userEl = document.getElementById("user-tile");
 var apiEl = document.getElementById("api-tile");
 var storyEl = document.getElementById("story-tile");
@@ -88,15 +94,18 @@ var displayProjectName = function(projectTitle) {
   storyEl.innerHTML = "";
   var titleEl = document.createElement("p");
   var pEl = document.createElement("p");
-  var textAreaEl = document.createElement("textarea");
-  textAreaEl.classList = "textarea"
-  textAreaEl.setAttribute("rows", "15"); 
+  var subtitleEl = document.createElement("p");
+  // textAreaEl.classList = "textarea"
+  // textAreaEl.setAttribute("rows", "10"); 
   titleEl.classList = "title is-3";
-  pEl.classList = "subtitle is-5";
+  pEl.classList = "block";
+  subtitleEl.classList = "subtitle is-4"
   titleEl.textContent = "About " + projectTitle;
-  pEl.textContent = "Use the area below for your ideas:"
+  pEl.innerHTML = "Use the list of random users to help visualize your user story. <br> <br>Use the list of APIs to formulate a high-tech solution."
+  subtitleEl.innerHTML = "Use the area below for <strong>your</strong> ideas!"
   storyEl.appendChild(titleEl);
   storyEl.appendChild(pEl);
+  storyEl.appendChild(subtitleEl);
   storyEl.appendChild(textAreaEl);
 };
 
@@ -159,7 +168,7 @@ var displayUserChoices = function (randUserList) {
   userEl.innerHTML = "";
   var titleEl = document.createElement("p");
   titleEl.classList = "title is-3";
-  titleEl.textContent = "Meet your team!";
+  titleEl.textContent = "Meet your users!";
   userEl.appendChild(titleEl);
   for (let i = 0; i < randUserList.length; i++) {
     var mediaEl = document.createElement("div");
@@ -191,6 +200,7 @@ var displayUserChoices = function (randUserList) {
   }
 };
 var saveProject = function () {
+  currentProject.text = textAreaEl.value;
   if (projects) {
   for (var i = 0; i < projects.length; i++) {
     if (projects[i].title === currentProject.title) {
@@ -221,6 +231,8 @@ var selectProject = function (event) {
       displayApiChoices(projects[i].apis);
       displayUserChoices(projects[i].users);
       displayProjectName(projects[i].title);
+      if (projects[i].text) {
+      textAreaEl.value = projects[i].text;}
     }
   }
 };
