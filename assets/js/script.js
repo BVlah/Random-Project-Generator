@@ -231,21 +231,21 @@ var displayUserChoices = function (randUserList) {
 // Save Project to Local Storage
 var saveProject = function () {
   currentProject.text = textAreaEl.value;
-
+ var match = "";
   if (projects.length > 0) {
-    var match = "";
+   
     for (var i = 0; i < projects.length; i++) {
       if (projects[i].title === currentProject.title) {
         match = true
         projects.splice(i, 1, currentProject);
       }
-      if (!match) {
-        projects.push(currentProject);
-      }
+
     }
-  } else {
-      projects.push(currentProject);
-  };
+  }
+  if (!match || !projects.length) {
+    projects.push(currentProject);
+  }
+  
   localStorage.setItem("projects", JSON.stringify(projects));
   loadProjectButtons();
 };
