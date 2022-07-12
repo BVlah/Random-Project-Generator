@@ -138,7 +138,7 @@ var displayTileHeader = function (choice) {
   currentProject.subject = choice;
   apiEl.innerHTML = "";
   var titleEl = document.createElement("p");
-  titleEl.classList = "title is-5";
+  titleEl.classList = "title is-3";
   titleEl.textContent =
     "These APIs are perfect for your " + choice + " project!";
   apiEl.appendChild(titleEl);
