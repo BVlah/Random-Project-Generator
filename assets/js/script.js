@@ -5,7 +5,7 @@ var currentProject = {};
 // Textarea declarations
 var textAreaEl = document.createElement("textarea");
 textAreaEl.classList = "textarea"
-textAreaEl.setAttribute("rows", "10"); 
+textAreaEl.setAttribute("rows", "16"); 
 
 // select elements to display
 var buttonPanelEl = document.getElementById("button-area");
@@ -30,7 +30,7 @@ var loadProjectButtons = function () {
 
       var deleteButtonEl = document.createElement("button");
       deleteButtonEl.classList = "button is-danger m-2 is-medium deleteButton";
-      deleteButtonEl.innerHTML = "<span class='icon is-small'><i class='fa-solid fa-trash-can'></i></i>";
+      deleteButtonEl.innerHTML = "<span class='icon is-small'><i class='fa-solid fa-trash-can'></i>";
       buttonDivEl.appendChild(deleteButtonEl);
     }
   } else projects = [];
