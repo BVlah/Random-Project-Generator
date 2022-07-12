@@ -4,8 +4,8 @@ var currentProject = {};
 
 // Textarea declarations
 var textAreaEl = document.createElement("textarea");
-textAreaEl.classList = "textarea"
-textAreaEl.setAttribute("rows", "10"); 
+textAreaEl.classList = "textarea";
+textAreaEl.setAttribute("rows", "15");
 
 // select elements to display
 var buttonPanelEl = document.getElementById("button-area");
@@ -13,16 +13,21 @@ var userEl = document.getElementById("user-tile");
 var apiEl = document.getElementById("api-tile");
 var storyEl = document.getElementById("story-tile");
 var saveButtonEl = document.getElementById("save");
+
+
+
 var loadProjectButtons = function () {
   projects = JSON.parse(localStorage.getItem("projects"));
   buttonPanelEl.innerHTML = "";
-  if (projects) {
+  if (!projects) {
     for (var i = 0; i < projects.length; i++) {
       var newButton = document.createElement("button");
       newButton.classList = "button is-primary m-2 is-medium";
       newButton.textContent = projects[i].title;
       buttonPanelEl.appendChild(newButton);
     }
+  } else {
+    projects = [];
   }
 };
 
@@ -46,9 +51,9 @@ $("#project-form-modal").click(function (event) {
   if (projectCategory != "Select One" && projectTitle && projectTeammates) {
     // close modal
     $("#project-modal")[0].classList.remove("is-active");
-
+    textAreaEl.value = "";
     randomUserCall(projectTeammates);
-    displayProjectName(projectTitle)
+    displayProjectName(projectTitle);
     apiSquaredCall(projectCategory);
   } else alert("Please fill out all info!");
 });
@@ -89,20 +94,21 @@ var apiSquaredCall = function (choice) {
   });
 };
 
-var displayProjectName = function(projectTitle) {
+var displayProjectName = function (projectTitle) {
   currentProject.title = projectTitle;
   storyEl.innerHTML = "";
   var titleEl = document.createElement("p");
   var pEl = document.createElement("p");
   var subtitleEl = document.createElement("p");
   // textAreaEl.classList = "textarea"
-  // textAreaEl.setAttribute("rows", "10"); 
+  // textAreaEl.setAttribute("rows", "15");
   titleEl.classList = "title is-3";
   pEl.classList = "subtitle is-5";
-  subtitleEl.classList = "subtitle is-5"
+  subtitleEl.classList = "subtitle is-5";
   titleEl.textContent = "About " + projectTitle;
-  pEl.innerHTML = "Use the list of random users to help visualize your user story. <br> <br>Use the list of APIs to formulate a high-tech solution."
-  subtitleEl.textContent = "Then, use the area below to stash your ideas!"
+  pEl.innerHTML =
+    "Use the list of random users to help visualize your user story. <br> <br>Use the list of APIs to formulate a high-tech solution.";
+  subtitleEl.textContent = "Then, use the area below to stash your ideas!";
   storyEl.appendChild(titleEl);
   storyEl.appendChild(pEl);
   storyEl.appendChild(subtitleEl);
@@ -113,7 +119,7 @@ var displayTileHeader = function (choice) {
   currentProject.subject = choice;
   apiEl.innerHTML = "";
   var titleEl = document.createElement("p");
-  titleEl.classList = "title is-5";
+  titleEl.classList = "title is-3";
   titleEl.textContent =
     "These APIs are perfect for your " + choice + " project!";
   apiEl.appendChild(titleEl);
@@ -202,24 +208,23 @@ var displayUserChoices = function (randUserList) {
 var saveProject = function () {
   currentProject.text = textAreaEl.value;
   if (projects) {
-  for (var i = 0; i < projects.length; i++) {
-    if (projects[i].title === currentProject.title) {
-      var check = true;
-      projects.splice(i, 1, currentProject);
+    for (var i = 0; i < projects.length; i++) {
+      if (projects[i].title === currentProject.title) {
+        var check = true;
+        projects.splice(i, 1, currentProject);
+      }
     }
   }
   if (!check) {
     projects.push(currentProject);
-  }
-
-  localStorage.setItem("projects", JSON.stringify(projects));
-  loadProjectButtons();
+    localStorage.setItem("projects", JSON.stringify(projects));
+    loadProjectButtons();
   } else {
     var projects = [];
     projects.push(currentProject);
     localStorage.setItem("projects", JSON.stringify(projects));
     loadProjectButtons();
-  };
+  }
 };
 
 var selectProject = function (event) {
@@ -232,7 +237,8 @@ var selectProject = function (event) {
       displayUserChoices(projects[i].users);
       displayProjectName(projects[i].title);
       if (projects[i].text) {
-      textAreaEl.value = projects[i].text;}
+        textAreaEl.value = projects[i].text;
+      }
     }
   }
 };
