@@ -28,7 +28,7 @@ https://eclevela-1234.github.io/Team-1-Project-1/
 
 ## Challenges
 - The Public API resource has very low threshold for api calls (about 10/hour) which made testing a challenge. We used diffrent tactics to deal with this like storing sample calls. Also once we had local storage testing became easier. Eventually found a workaround by running the call in an incognito window.
-- We originally planned to use and AI text generator in our concept but encountered a pay wall so we had to scrap the idea. 
+- We originally planned to use an AI text generator in our concept but encountered a pay wall so we had to scrap the idea. 
 - From that setback, the textarea was born. The textarea actually added a cool interactive feature and improved the overall utility of the app.
-- In general, working on separate parts of the app was challenging with the complexity of the task at hand. We strategized the connection between two major part (the modal & the api call) and described the expected variable out put from one to the other. Amazingly, connecting the two functions was easy because we stuck to the plan and did what we said we'd do.
+- In general, working on separate parts of the app was challenging with the complexity of the task at hand. We strategized the connection between two major parts (the modal & the api call) and described the expected variable output from one to the other, in advance. Amazingly, connecting the two functions was easy because we stuck to the plan and did what we said we'd do.
 - Bulma was a bit of a learning curve but offered some sleek elements and the easy responsiveness similar to Bootstrap. 
