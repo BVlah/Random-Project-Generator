@@ -31,7 +31,7 @@ var loadProjectButtons = function () {
 
       var deleteButtonEl = document.createElement("button");
       deleteButtonEl.classList = "button is-danger m-2 is-medium deleteButton";
-      deleteButtonEl.innerHTML = "<span class='icon is-small'><i class='fa-solid fa-trash-can'></i></i>";
+      deleteButtonEl.innerHTML = "<span class='icon is-small'><img src='./assets/images/trash-can.png' alt='Trash Can'></span>";
       buttonDivEl.appendChild(deleteButtonEl);
     }
   } else projects = [];
