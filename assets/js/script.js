@@ -8,12 +8,12 @@ textAreaEl.classList = "textarea"
 textAreaEl.setAttribute("rows", "10"); 
 
 // select elements to display
-var liveProject = "";
 var buttonPanelEl = document.getElementById("button-area");
 var userEl = document.getElementById("user-tile");
 var apiEl = document.getElementById("api-tile");
 var storyEl = document.getElementById("story-tile");
 var saveButtonEl = document.getElementById("save");
+
 var loadProjectButtons = function () {
   projects = JSON.parse(localStorage.getItem("projects"));
   buttonPanelEl.innerHTML = "";
@@ -57,6 +57,7 @@ $("#start-project").on("click", function () {
 // Submit Button in Modal Clicked
 $("#project-form-modal").click(function (event) {
   event.preventDefault();
+  textAreaEl.value = "";
   // get form values
   var projectTeammates = $("#modalTeammates").val();
   var projectCategory = $("#modalCategory").val();
@@ -69,9 +70,6 @@ $("#project-form-modal").click(function (event) {
     randomUserCall(projectTeammates);
     displayProjectName(projectTitle)
     apiSquaredCall(projectCategory);
-
-    // update project type
-    liveProject = "new";
 
   } else alert("Please fill out all info!");
 });
@@ -234,15 +232,20 @@ var displayUserChoices = function (randUserList) {
 var saveProject = function () {
   currentProject.text = textAreaEl.value;
 
-  if (liveProject = "new") {
-      projects.push(currentProject);
-  } else if (liveProject = "existing") {
+  if (projects.length > 0) {
+    var match = "";
     for (var i = 0; i < projects.length; i++) {
       if (projects[i].title === currentProject.title) {
+        match = true
         projects.splice(i, 1, currentProject);
       }
+      if (!match) {
+        projects.push(currentProject);
+      }
     }
-  }
+  } else {
+      projects.push(currentProject);
+  };
   localStorage.setItem("projects", JSON.stringify(projects));
   loadProjectButtons();
 };
@@ -269,7 +272,7 @@ var saveProject = function () {
 
 // Load Project from Local Storage
 var selectProject = function (event) {
-  liveProject = "existing";
+  textAreaEl.value = "";
   var selectedButton = event.target.textContent;
   console.log(selectedButton);
   for (var i = 0; i < projects.length; i++) {
