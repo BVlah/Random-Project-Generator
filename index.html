@@ -8,12 +8,18 @@
     <title>Random Project Generator</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
 
 </head>
 
 <body>
-    <header class="hero container is-primary">
-        <h1 class="hero-body title has-text-centered">Random Project Generator</h1>
+
+  <!--header-->
+    <header class="hero is-small is-link">
+      <div class="hero-body">
+        <p class="hero-body title has-text-centered">Random Project Generator</p>
+        <p class="subtitle has-text-centered">World's First Api Api Generator</p>
+      </div>
     </header>
 
     <main class="container">
@@ -26,18 +32,7 @@
                         content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
                         more-or-less normal distribution of letters, as opposed to using 'Content here, content here',
                         making it look like readable English.</p>
-                    <button class="button is-primary">Get Started</button>
-                </section>
-                <section class="section" id="past-projects">
-                    <h2 class="title">Load Previous Projects</h2>
-                    <p class="block">You "worked" hard on these! Click a button to show them off!</p>
-                    <!-- These will be dynamically generated -->
-                    <div id="button-area">
-                        <button class="button is-link m-2">Project 1</button>
-                        <button class="button is-primary m-2">Project 2</button>
-                        <button class="button is-info m-2">Project 3</button>
-                        <button class="button is-success m-2">Project 4</button>
-                    </div>
+                    <button class="button is-primary is-medium">Get Started</button>
                 </section>
             </div>
 
@@ -72,11 +67,23 @@
             </div>
     </main>
 
+    <section class="section" id="past-projects">
+                    <h2 class="title">Load Previous Projects</h2>
+                    <p class="block">You "worked" hard on these! Click a button to show them off!</p>
+                    <!-- These will be dynamically generated -->
+                    <div id="button-area">
+                        <button class="button is-link m-2">Project 1</button>
+                        <button class="button is-primary m-2">Project 2</button>
+                        <button class="button is-info m-2">Project 3</button>
+                        <button class="button is-success m-2">Project 4</button>
+                    </div>
+                </section>
+
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="has-background-black">
         <div class="content has-text-centered">
-            <p>
-                <strong>RPG</strong> by <a href="https://github.com/eclevela-1234/Team-1-Project-1/settings">The
+            <p class="has-text-white">
+                <strong class="has-text-white">RPG</strong> by <a href="https://github.com/eclevela-1234/Team-1-Project-1/settings">The
                     Hey-Yas</a> is a serious App. <span>Don't</span> hate the Hey-Yas, hate the game 😘.
             </p>
         </div>
