@@ -5,7 +5,7 @@ var currentProject = {};
 // Textarea declarations
 var textAreaEl = document.createElement("textarea");
 textAreaEl.classList = "textarea"
-textAreaEl.setAttribute("rows", "10"); 
+textAreaEl.setAttribute("rows", "16"); 
 
 // select elements to display
 var buttonPanelEl = document.getElementById("button-area");
@@ -31,6 +31,7 @@ var loadProjectButtons = function () {
 
       var deleteButtonEl = document.createElement("button");
       deleteButtonEl.classList = "button is-danger m-2 is-medium deleteButton";
+
       deleteButtonEl.innerHTML = "<span class='icon is-small'><img src='./assets/images/trash-can.png' alt='Trash Can'></span>";
       buttonDivEl.appendChild(deleteButtonEl);
     }
@@ -130,7 +131,7 @@ var displayTileHeader = function (choice) {
   currentProject.subject = choice;
   apiEl.innerHTML = "";
   var titleEl = document.createElement("p");
-  titleEl.classList = "title is-5";
+  titleEl.classList = "title is-3";
   titleEl.textContent =
     "These APIs are perfect for your " + choice + " project!";
   apiEl.appendChild(titleEl);
@@ -223,21 +224,20 @@ var displayUserChoices = function (randUserList) {
 // Save Project to Local Storage
 var saveProject = function () {
   currentProject.text = textAreaEl.value;
-  var match = "";
-
+ var match = "";
   if (projects.length > 0) {
+   
     for (var i = 0; i < projects.length; i++) {
       if (projects[i].title === currentProject.title) {
         match = true
         projects.splice(i, 1, currentProject);
       }
     }
-    if (!match || !projects.length) {
-      projects.push(currentProject);
-    }
-  } else {
-      projects.push(currentProject);
-  };
+  }
+  if (!match || !projects.length) {
+    projects.push(currentProject);
+  }
+  
   localStorage.setItem("projects", JSON.stringify(projects));
   loadProjectButtons();
 };
