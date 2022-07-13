@@ -1,36 +1,69 @@
+// global project variables
 var projects = [];
+var currentProject = {};
+
+// Textarea declarations
+var textAreaEl = document.createElement("textarea");
+textAreaEl.classList = "textarea"
+textAreaEl.setAttribute("rows", "16"); 
+
+// select elements to display
+var buttonPanelEl = document.getElementById("button-area");
+var userEl = document.getElementById("user-tile");
+var apiEl = document.getElementById("api-tile");
+var storyEl = document.getElementById("story-tile");
+var saveButtonEl = document.getElementById("save");
+
+var loadProjectButtons = function () {
+  projects = JSON.parse(localStorage.getItem("projects"));
+  buttonPanelEl.innerHTML = "";
+  if (projects) {
+    for (var i = 0; i < projects.length; i++) {
+      var buttonDivEl = document.createElement("div");
+      buttonDivEl.classList = "buttons"
+      buttonDivEl.setAttribute("id", i);
+      buttonPanelEl.appendChild(buttonDivEl);
+
+      var newButtonEl = document.createElement("button");
+      newButtonEl.classList = "button is-primary m-2 is-medium loadButton";
+      newButtonEl.textContent = projects[i].title;
+      buttonDivEl.appendChild(newButtonEl);
+
+      var deleteButtonEl = document.createElement("button");
+      deleteButtonEl.classList = "button is-danger m-2 is-medium deleteButton";
+
+      deleteButtonEl.innerHTML = "<span class='icon is-small'><img src='./assets/images/trash-can.png' alt='Trash Can'></span>";
+      buttonDivEl.appendChild(deleteButtonEl);
+    }
+  } else projects = [];
+};
 
 // Open Modal
 $("#start-project").on("click", function () {
   $("#project-modal")[0].classList.add("is-active");
 
   // Clear previous values
-  $("#modalTeammates, #modalBackstory").val("");
+  $("#modalTeammates, #modalProjectTitle").val("");
   $("#modalCategory").val("Select One");
 });
 
 // Submit Button in Modal Clicked
 $("#project-form-modal").click(function (event) {
   event.preventDefault();
+  textAreaEl.value = "";
   // get form values
   var projectTeammates = $("#modalTeammates").val();
   var projectCategory = $("#modalCategory").val();
-  var projectBackstory = $("#modalBackstory").val();
+  var projectTitle = $("#modalProjectTitle").val();
 
-  if (projectCategory != "Select One" && projectBackstory && projectTeammates) {
+  if (projectCategory != "Select One" && projectTitle && projectTeammates) {
     // close modal
     $("#project-modal")[0].classList.remove("is-active");
 
-    // save in projects array
-    // projects.push({
-    //   teammates: projectTeammates,
-    //   category: projectCategory,
-    //   backstory: projectBackstory
-    // });
     randomUserCall(projectTeammates);
+    displayProjectName(projectTitle)
     apiSquaredCall(projectCategory);
 
-    console.log(projectBackstory);
   } else alert("Please fill out all info!");
 });
 
@@ -41,57 +74,8 @@ $(".modal-background, .modal-close").click(function (event) {
   $("#project-modal")[0].classList.remove("is-active");
 });
 
-var sampleRandomUsers = [
-  {
-    Name: "Willibald Mast",
-    Age: 29,
-    Username: "orangetiger890",
-    Image: "https://randomuser.me/api/portraits/men/65.jpg",
-  },
-  {
-    Name: "Harry Guerin",
-    Age: 45,
-    Username: "yellowlion888",
-    Image: "https://randomuser.me/api/portraits/men/50.jpg",
-  },
-  {
-    Name: "Tracey Steward",
-    Age: 47,
-    Username: "bigbutterfly197",
-    Image: "https://randomuser.me/api/portraits/women/23.jpg",
-  },
-];
-var sampleApiChoices = [
-  {
-    Name: "RandomDog",
-    Description: "Random pictures of dogs",
-    Link: "https://random.dog/woof.json",
-  },
-  {
-    Name: "Cat Facts",
-    Description: "Daily cat facts",
-    Link: "https://alexwohlbruck.github.io/cat-facts/",
-  },
-  {
-    Name: "The Dog",
-    Description:
-      "A public service all about Dogs, free to use when making your fancy new App, Website or Service",
-    Link: "https://thedogapi.com/",
-  },
-];
 
-// select elements to display
-var userEl = document.getElementById("user-tile");
-var apiEl = document.getElementById("api-tile");
-var storyEl = document.getElementById("story-tile");
-
-// global variables
-// var randUserList = [];
-// var apiList = [];
-// var APIcount = 3;
-// var userCount = 4;
-// var choice = "business";
-// Function to call API API
+// API API Call
 var apiSquaredCall = function (choice) {
   var apiList = [];
   fetch("https://api.publicapis.org/entries?category=" + choice).then(function (
@@ -113,6 +97,7 @@ var apiSquaredCall = function (choice) {
 
           //add conditional to check for duplicates
         }
+
         displayTileHeader(choice);
         displayApiChoices(apiChoices);
       });
@@ -120,26 +105,52 @@ var apiSquaredCall = function (choice) {
   });
 };
 
+// Project Name & Story Display
+var displayProjectName = function(projectTitle) {
+  currentProject.title = projectTitle;
+  storyEl.innerHTML = "";
+  var titleEl = document.createElement("p");
+  var pEl = document.createElement("p");
+  var subtitleEl = document.createElement("p");
+  // textAreaEl.classList = "textarea"
+  // textAreaEl.setAttribute("rows", "10"); 
+  titleEl.classList = "title is-3";
+  pEl.classList = "subtitle is-5";
+  subtitleEl.classList = "subtitle is-5"
+  titleEl.textContent = "About " + projectTitle;
+  pEl.innerHTML = "Use the list of random users to help visualize your user story. <br> <br>Use the list of APIs to formulate a high-tech solution."
+  subtitleEl.textContent = "Then, use the area below to stash your ideas!"
+  storyEl.appendChild(titleEl);
+  storyEl.appendChild(pEl);
+  storyEl.appendChild(subtitleEl);
+  storyEl.appendChild(textAreaEl);
+};
+
+// Display API header
 var displayTileHeader = function (choice) {
+  currentProject.subject = choice;
   apiEl.innerHTML = "";
   var titleEl = document.createElement("p");
-  titleEl.classList = "title";
+  titleEl.classList = "title is-3";
   titleEl.textContent =
     "These APIs are perfect for your " + choice + " project!";
   apiEl.appendChild(titleEl);
 };
+
+// Display API Choices
 var displayApiChoices = function (apiChoices) {
+  currentProject.apis = apiChoices;
   for (let i = 0; i < apiChoices.length; i++) {
     var divEl = document.createElement("article");
-    divEl.classList = "m-";
+    divEl.classList = "my-2";
     var pHeadEl = document.createElement("p");
     var pSubEl = document.createElement("p");
     var aEl = document.createElement("a");
     aEl.setAttribute("href", apiChoices[i].Link);
     aEl.setAttribute("target", "_blank");
-    pHeadEl.classList = "title";
+    pHeadEl.classList = "title is-4";
     pHeadEl.innerHTML = apiChoices[i].Name;
-    pSubEl.classList = "subtitle";
+    pSubEl.classList = "subtitle is-5";
     pSubEl.textContent = apiChoices[i].Description;
     aEl.appendChild(pHeadEl);
     divEl.appendChild(aEl);
@@ -165,17 +176,20 @@ var randomUserCall = function (userCount) {
           };
           randUserList.push(randomUserEntry);
         }
+
         displayUserChoices(randUserList);
       });
     }
   });
 };
 
+// Display Users
 var displayUserChoices = function (randUserList) {
+  currentProject.users = randUserList;
   userEl.innerHTML = "";
   var titleEl = document.createElement("p");
   titleEl.classList = "title is-3";
-  titleEl.textContent = "Meet your team!";
+  titleEl.textContent = "Meet your users!";
   userEl.appendChild(titleEl);
   for (let i = 0; i < randUserList.length; i++) {
     var mediaEl = document.createElement("div");
@@ -207,6 +221,61 @@ var displayUserChoices = function (randUserList) {
   }
 };
 
+// Save Project to Local Storage
+var saveProject = function () {
+  currentProject.text = textAreaEl.value;
+ var match = "";
+  if (projects.length > 0) {
+   
+    for (var i = 0; i < projects.length; i++) {
+      if (projects[i].title === currentProject.title) {
+        match = true
+        projects.splice(i, 1, currentProject);
+      }
+    }
+  }
+  if (!match || !projects.length) {
+    projects.push(currentProject);
+  }
+  
+  localStorage.setItem("projects", JSON.stringify(projects));
+  loadProjectButtons();
+};
+
+// Load Project from Local Storage
+var selectProject = function (event) {
+    textAreaEl.value = "";
+    var selectedButton = event.target.textContent;
+    for (var i = 0; i < projects.length; i++) {
+      if (selectedButton === projects[i].title) {
+        displayTileHeader(projects[i].subject);
+        displayApiChoices(projects[i].apis);
+        displayUserChoices(projects[i].users);
+        displayProjectName(projects[i].title);
+        if (projects[i].text) {
+        textAreaEl.value = projects[i].text;}
+      }
+  }
+};
+
+// Delete Buttons
+$(document).on("click", ".deleteButton", function() {
+  var removedProject = $(this).siblings()[0].textContent;
+  var updatedProjectsArr = [];
+
+  for (var i=0; i<projects.length; i++) {
+    if (projects[i].title !== removedProject) {
+      updatedProjectsArr.push(projects[i]);
+    }
+  }
+  projects = updatedProjectsArr;
+  localStorage.setItem("projects", JSON.stringify(projects));
+  loadProjectButtons();
+});
+
+loadProjectButtons();
+saveButtonEl.addEventListener("click", saveProject);
+buttonPanelEl.addEventListener("click", selectProject);
 //API Calls - Use Sparingly
 // randomUserCall(userCount);
 // apiSquaredCall("Business");

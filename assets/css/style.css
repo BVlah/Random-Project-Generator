@@ -1,14 +1,20 @@
-
-
-
+body {
+    font-family: 'Abel';font-size: 22px;
+   }
 
 form h2 {
     text-align: center;
 }
+
 a {
     text-decoration: none;
 }
 
 a:hover {
     color: gray;
+}
+
+.loadButton {
+    width: 66%;
+    overflow-wrap: break-word; 
 }

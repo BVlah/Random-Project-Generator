@@ -8,156 +8,249 @@
     <title>Random Project Generator</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
 
 </head>
 
 <body>
-    <header class="hero container is-primary">
-        <h1 class="hero-body title has-text-centered">Random Project Generator</h1>
-    </header>
-
-    <main class="container">
-        <div class="columns">
-            <!-- column one (About/Begin Section & Stored Project Buttons) -->
-            <div class="column is-one-third">
-                <section class="section" id="about">
-                    <h2 class="title">About the App</h2>
-                    <p class="block">It is a long established fact that a reader will be distracted by the readable
-                        content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
-                        more-or-less normal distribution of letters, as opposed to using 'Content here, content here',
-                        making it look like readable English.</p>
-                    <button id="start-project" class="js-modal-trigger button is-primary" data-target="project-modal">Get Started</button>
-                </section>
-                <section class="section" id="past-projects">
-                    <h2 class="title">Load Previous Projects</h2>
-                    <p class="block">You "worked" hard on these! Click a button to show them off!</p>
-                    <!-- These will be dynamically generated -->
-                    <div id="button-area">
-                        <button class="button is-link m-2">Project 1</button>
-                        <button class="button is-primary m-2">Project 2</button>
-                        <button class="button is-info m-2">Project 3</button>
-                        <button class="button is-success m-2">Project 4</button>
-                    </div>
-                </section>
-            </div>
-
-            <!-- column two (Project mockup) -->
-            <div class="column">
-                <section class="section">
-                <div class="tile is-ancestor">
-                    <div class="tile is-vertical is-20">
-                      <div class="tile">
-                        <div class="tile is-parent is-vertical">
-                          <article id="user-tile" class="tile is-child notification is-primary">
-                            <p class="title">This is your team</p>
-                            <p class="subtitle">Jimmy Johnson <br>Billy Bilstein <br>Jesse Jessereson</p>
-                          </article>
-                          <article id="api-tile" class="tile is-child notification is-warning">
-                            <p class="title">You will use these APIs</p>
-                            <p class="subtitle">Random User <br>Random Text <br>API-API</p>
-                          </article>
-                        </div>
-                        <div class="tile is-parent">
-                          <article id="story-tile" class="tile is-child notification is-info">
-                            <p class="title">This is the user story</p>
-                            <p class="subtitle">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                            <figure class="image is-4by3">
-                              <img src="https://bulma.io/images/placeholders/640x480.png">
-                            </figure>
-                          </article>
-                        </div>
-                      </div>
-                  </div>
-                </section>
-            </div>
-    </main>
-
-     <!-- Modal -->
-    <div id="project-modal" class="modal">
-      <div class="modal-background"></div>
-      <div class="modal-content">
-        <div class="box">
-          <form>
-            <h2 class="title">Start your Project!</h2>
-            <div class="field">
-              <label class="label">Number of Teammates</label>
-              <div class="control">
-                <div class="select">
-                  <select id="modalTeammates">
-                    <option>0</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                    <option>10</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label">Category</label>
-              <div class="control">
-                <div class="select">
-                  <select id="modalCategory">
-                    <option>Select One</option>
-                    <option>Animals</option>
-                    <option>Anime</option>
-                    <option>Art & Design</option>
-                    <option>Books</option>
-                    <option>Business</option>
-                    <option>Environment</option>
-                    <option>Finance</option>
-                    <option>Food & Drink</option>
-                    <option>Games & Comics</option>
-                    <option>Government</option>
-                    <option>Health</option>
-                    <option>Jobs</option>
-                    <option>Music</option>
-                    <option>News</option>
-                    <option>Personality</option>
-                    <option>Photography</option>
-                    <option>Science & Math</option>
-                    <option>Social</option>
-                    <option>Sports & Fitness</option>
-                    <option>Transportation</option>
-                    <option>Weather</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label">A Few Words for your Backstory</label>
-              <div class="control">
-                <textarea id="modalBackstory" class="textarea" placeholder="e.g. Insert Example Here"></textarea>
-              </div>
-            </div>
-            <div class="control">
-              <button id="project-form-modal" class="button is-primary" type="Submit">Submit</button>
-            </div>
-          </form>
-        </div>
-      </div>
-      <button class="modal-close is-large" aria-label="close"></button>
+  <header class="hero container is-primary">
+    <div class="hero-body">
+      <h1 class="title has-text-centered is-size-1">Random Project Generator</h1>
     </div>
+  </header>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="content has-text-centered">
-            <p>
-                <strong>RPG</strong> by <a href="https://github.com/eclevela-1234/Team-1-Project-1/">The
-                    Hey-Yas</a> is a serious App. <span>Don't</span> hate the Hey-Yas, hate the game 😘.
-            </p>
-        </div>
-    </footer>
+  <main class="container">
+    <div class="columns">
+      <!-- column one (About/Begin Section & Stored Project Buttons) -->
+      <div class="column is-one-third">
+        <section class="section" id="about">
+          <h2 class="title">About RPG</h2>
+          <p class="block">Use this app to help design your first coding project. This app will generate hypothetical
+            users, a list of free APIs, an inspirational quote, and a workspace for your thoughts. Let's go!</p>
+          <div class="block">
+            <button id="start-project" class="js-modal-trigger button is-info m-2 is-large is-fullwidth" data-target="project-modal">Get Started</button>
+          </div>
+        </section>
+        <section class="section" id="past-projects">
+          <h2 class="title">Load Previous Projects</h2>
+          <p class="block">You "worked" hard on these! Click a button to show them off!</p>
+          <!-- These will be dynamically generated -->
+          <div id="button-area"></div>
+        </section>
+      </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>  
-<script src="./assets/js/script.js"></script>
+      <!-- column two (Project mockup) -->
+      <div class="column">
+        <!-- <div class="section">
+          <button id="save" class="button is-success m-2 is-medium is-fullwidth">Save Project</button>
+        </div> -->
+        <section class="section">
+          <button id="save" class="button is-link mb-4 is-large is-outlined is-fullwidth">Save Project</button>
+          <div class="tile is-ancestor">
+            <div class="tile is-vertical is-20">
+              <div class="tile">
+                <div class="tile is-parent is-vertical">
+                  <article id="user-tile" class="tile is-child notification is-success">
+                    <p class="title is-3">Meet the Hey Yas!</p>
+                    <div class="media is-justify-content-center is-flex-direction-row-reverse">
+                      <div class="media-left">
+                        <figure class="image is-64x64">
+                          <img class="is-rounded" src="./assets/images/Eliotprofileimage.jpg"
+                            alt="Eliot's Profile Image">
+                        </figure>
+                      </div>
+                      <div class="media-content media-left">
+                        <p class="title is-5">Eliot Cleveland</p>
+                        <p class="subtitle is-6">@eclevela-1234</p>
+                      </div>
+                    </div>
+                    <div class="media is-justify-content-center is-flex-direction-row-reverse">
+                      <div class="media-left">
+                        <figure class="image is-64x64">
+                          <img class="is-rounded" src="./assets/images/FosterProfile.jpg"
+                            alt="Foster's Profile Image">
+                        </figure>
+                      </div>
+                      <div class="media-content media-left">
+                        <p class="title is-5">Anis-Foster Flowers</p>
+                        <p class="subtitle is-6">@fosflowers</p>
+                      </div>
+                    </div>
+                    <div class="media is-justify-content-center is-flex-direction-row-reverse">
+                      <div class="media-left">
+                        <figure class="image is-64x64">
+                          <img class="is-rounded" src="./assets/images/BrennanProfile.png"
+                            alt="Brennan's Profile Image">
+                        </figure>
+                      </div>
+                      <div class="media-content media-left">
+                        <p class="title is-5">Brennan Vlahcevic</p>
+                        <p class="subtitle is-6">@BVlah</p>
+                      </div>
+                    </div>
+                    <div class="media is-justify-content-center is-flex-direction-row-reverse">
+                      <div class="media-left">
+                        <figure class="image is-64x64">
+                          <img class="is-rounded" src="./assets/images/LilianaProfile.jpg"
+                            alt="Liliana's Profile Image">
+                        </figure>
+                      </div>
+                      <div class="media-content media-left">
+                        <p class="title is-5">Liliana Stevens</p>
+                        <p class="subtitle is-6">@Liliannas22</p>
+                      </div>
+                    </div>
+                    <div class="media is-justify-content-center is-flex-direction-row-reverse">
+                      <div class="media-left">
+                        <figure class="image is-64x64">
+                          <img class="is-rounded" src="./assets/images/YvonneProfile.png"
+                            alt="Yvonne's Profile Image">
+                        </figure>
+                      </div>
+                      <div class="media-content media-left">
+                        <p class="title is-5">Yvonne Batcheller</p>
+                        <p class="subtitle is-6">@ycbatchellor</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article id="api-tile" class="tile is-child notification is-warning">
+                    <p class="title is-3">These are the APIs working behind the scenes on this amazing app!</p>
+                    <article class="my-3">
+                      <a href="https://api.publicapis.org/" target="_blank">
+                        <p class="title is-4 my-2">Public APIs</p>
+                      </a>
+                      <p class="subtitle is-5">A collective list of free APIs for use in software and web development
+                      </p>
+                    </article>
+                    <article class="my-3">
+                      <a href="https://randomuser.me/documentation" target="_blank">
+                        <p class="title is-4 my-2">Random User Generator</p>
+                      </a>
+                      <p class="subtitle is-5">A free and easy to use service to generate random user data for
+                        application testing.</p>
+                    </article>
+                    <!-- <article class="my-3">
+                      <a href="https://premium.zenquotes.io/zenquotes-documentation/" target="_blank">
+                        <p class="title is-4 my-2">ZenQuotes</p>
+                      </a>
+                      <p class="subtitle is-5">A quality, reliable API that both inspires and provokes thought.</p>
+                    </article> -->
+                  </article>
+                </div>
+                <div class="tile is-parent is-vertical">
+                  <article id="story-tile" class="tile is-child notification is-info">
+                    <p class="title">Our Story</p> <br>
+                    <p class="subtitle">In the summer of 2022, a ragtag group of young developers had an idea that would
+                      change the course of Coding Boot Camps everywhere. We grappled with what our first group project
+                      should be about.</p>
+                    <p class="subtitle">What real world problem could we solve with our novice coding skills? As we
+                      struggled to come up with an idea, we realized the problem we needed to solve was right in front
+                      of us the whole time.</p>
+                    <p class="subtitle">On that day, we knew exactly what we needed to do. We created an app that helps
+                      you design your very own project in a snap!</p>
+                    <p class="subtitle">Gone are the days of endless group discussion. With this app, you won't have to
+                      worry about that anymore!</p><br>
+                  </article>
+                  <article id="quote-tile" class="tile is-child notification is-danger">
+                    <p class="title">Quote</p>
+                    <p id="quote-text" class="subtitle">"Sometimes the hardest part is just getting started"</p>
+                    <p id="quote text" class="subtitle"> "Embrace the joy of Collaboration!"</p>
+                    <p id="quote text" class="subtitle"> "Don't panic, just google it!"</p>
+                    <div id="author-text" class="content">- The Hey-Yas, with ❤</div>
+                  </article>
+                </div>
+              </div>
+            </div>
+        </section>
+      </div>
+  </main>
+
+  <!-- Modal -->
+  <div id="project-modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="box">
+        <form>
+          <h2 class="title">Start your Project!</h2>
+          <div class="field">
+            <label class="label">Number of Users</label>
+            <div class="control">
+              <div class="select">
+                <select id="modalTeammates">
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Category</label>
+            <div class="control">
+              <div class="select">
+                <select id="modalCategory">
+                  <option>Select One</option>
+                  <option>Animals</option>
+                  <option>Anime</option>
+                  <option>Art & Design</option>
+                  <option>Books</option>
+                  <option>Business</option>
+                  <option>Environment</option>
+                  <option>Finance</option>
+                  <option>Food & Drink</option>
+                  <option>Games & Comics</option>
+                  <option>Government</option>
+                  <option>Health</option>
+                  <option>Jobs</option>
+                  <option>Music</option>
+                  <option>News</option>
+                  <option>Personality</option>
+                  <option>Photography</option>
+                  <option>Science & Math</option>
+                  <option>Social</option>
+                  <option>Sports & Fitness</option>
+                  <option>Transportation</option>
+                  <option>Weather</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Give your project a name!</label>
+            <div class="control">
+              <input id="modalProjectTitle" class="input" placeholder="Extra Most Bestest Project!"></input>
+            </div>
+          </div>
+          <div class="control">
+            <button id="project-form-modal" class="button is-primary" type="Submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>RPG</strong> by <a href="https://github.com/eclevela-1234/Team-1-Project-1/">The
+          Hey-Yas</a> is a serious App. <span>Don't</span> hate the Hey-Yas, hate the game 😘.
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
