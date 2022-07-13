@@ -1,11 +1,12 @@
 // global project variables
 var projects = [];
 var currentProject = {};
+var saveOK = "false";
 
 // Textarea declarations
 var textAreaEl = document.createElement("textarea");
-textAreaEl.classList = "textarea"
-textAreaEl.setAttribute("rows", "16"); 
+textAreaEl.classList = "textarea";
+textAreaEl.setAttribute("rows", "16");
 
 // select elements to display
 var buttonPanelEl = document.getElementById("button-area");
@@ -20,7 +21,7 @@ var loadProjectButtons = function () {
   if (projects) {
     for (var i = 0; i < projects.length; i++) {
       var buttonDivEl = document.createElement("div");
-      buttonDivEl.classList = "buttons"
+      buttonDivEl.classList = "buttons";
       buttonDivEl.setAttribute("id", i);
       buttonPanelEl.appendChild(buttonDivEl);
 
@@ -32,7 +33,8 @@ var loadProjectButtons = function () {
       var deleteButtonEl = document.createElement("button");
       deleteButtonEl.classList = "button is-danger m-2 is-medium deleteButton";
 
-      deleteButtonEl.innerHTML = "<span class='icon is-small'><img src='./assets/images/trash-can.png' alt='Trash Can'></span>";
+      deleteButtonEl.innerHTML =
+        "<span class='icon is-small'><img src='./assets/images/trash-can.png' alt='Trash Can'></span>";
       buttonDivEl.appendChild(deleteButtonEl);
     }
   } else projects = [];
@@ -61,9 +63,9 @@ $("#project-form-modal").click(function (event) {
     $("#project-modal")[0].classList.remove("is-active");
 
     randomUserCall(projectTeammates);
-    displayProjectName(projectTitle)
+    displayProjectName(projectTitle);
     apiSquaredCall(projectCategory);
-
+    saveOK = true;
   } else alert("Please fill out all info!");
 });
 
@@ -73,7 +75,6 @@ $(".modal-background, .modal-close").click(function (event) {
 
   $("#project-modal")[0].classList.remove("is-active");
 });
-
 
 // API API Call
 var apiSquaredCall = function (choice) {
@@ -106,20 +107,21 @@ var apiSquaredCall = function (choice) {
 };
 
 // Project Name & Story Display
-var displayProjectName = function(projectTitle) {
+var displayProjectName = function (projectTitle) {
   currentProject.title = projectTitle;
   storyEl.innerHTML = "";
   var titleEl = document.createElement("p");
   var pEl = document.createElement("p");
   var subtitleEl = document.createElement("p");
   // textAreaEl.classList = "textarea"
-  // textAreaEl.setAttribute("rows", "10"); 
+  // textAreaEl.setAttribute("rows", "10");
   titleEl.classList = "title is-3";
   pEl.classList = "subtitle is-5";
-  subtitleEl.classList = "subtitle is-5"
+  subtitleEl.classList = "subtitle is-5";
   titleEl.textContent = "About " + projectTitle;
-  pEl.innerHTML = "Use the list of random users to help visualize your user story. <br> <br>Use the list of APIs to formulate a high-tech solution."
-  subtitleEl.textContent = "Then, use the area below to stash your ideas!"
+  pEl.innerHTML =
+    "Use the list of random users to help visualize your user story. <br> <br>Use the list of APIs to formulate a high-tech solution.";
+  subtitleEl.textContent = "Then, use the area below to stash your ideas!";
   storyEl.appendChild(titleEl);
   storyEl.appendChild(pEl);
   storyEl.appendChild(subtitleEl);
@@ -223,47 +225,49 @@ var displayUserChoices = function (randUserList) {
 
 // Save Project to Local Storage
 var saveProject = function () {
-  currentProject.text = textAreaEl.value;
- var match = "";
-  if (projects.length > 0) {
-   
-    for (var i = 0; i < projects.length; i++) {
-      if (projects[i].title === currentProject.title) {
-        match = true
-        projects.splice(i, 1, currentProject);
+  if (saveOK === true) {
+    currentProject.text = textAreaEl.value;
+    var match = "";
+    if (projects.length > 0) {
+      for (var i = 0; i < projects.length; i++) {
+        if (projects[i].title === currentProject.title) {
+          match = true;
+          projects.splice(i, 1, currentProject);
+        }
       }
     }
+    if (!match || !projects.length) {
+      projects.push(currentProject);
+    }
+
+    localStorage.setItem("projects", JSON.stringify(projects));
+    loadProjectButtons();
   }
-  if (!match || !projects.length) {
-    projects.push(currentProject);
-  }
-  
-  localStorage.setItem("projects", JSON.stringify(projects));
-  loadProjectButtons();
 };
 
 // Load Project from Local Storage
 var selectProject = function (event) {
-    textAreaEl.value = "";
-    var selectedButton = event.target.textContent;
-    for (var i = 0; i < projects.length; i++) {
-      if (selectedButton === projects[i].title) {
-        displayTileHeader(projects[i].subject);
-        displayApiChoices(projects[i].apis);
-        displayUserChoices(projects[i].users);
-        displayProjectName(projects[i].title);
-        if (projects[i].text) {
-        textAreaEl.value = projects[i].text;}
+  textAreaEl.value = "";
+  var selectedButton = event.target.textContent;
+  for (var i = 0; i < projects.length; i++) {
+    if (selectedButton === projects[i].title) {
+      displayTileHeader(projects[i].subject);
+      displayApiChoices(projects[i].apis);
+      displayUserChoices(projects[i].users);
+      displayProjectName(projects[i].title);
+      if (projects[i].text) {
+        textAreaEl.value = projects[i].text;
       }
+    }
   }
 };
 
 // Delete Buttons
-$(document).on("click", ".deleteButton", function() {
+$(document).on("click", ".deleteButton", function () {
   var removedProject = $(this).siblings()[0].textContent;
   var updatedProjectsArr = [];
 
-  for (var i=0; i<projects.length; i++) {
+  for (var i = 0; i < projects.length; i++) {
     if (projects[i].title !== removedProject) {
       updatedProjectsArr.push(projects[i]);
     }
