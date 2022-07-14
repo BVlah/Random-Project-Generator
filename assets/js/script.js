@@ -40,6 +40,11 @@ var loadProjectButtons = function () {
   } else projects = [];
 };
 
+
+//*********************************************************
+// Modal
+//*********************************************************
+
 // Open Modal
 $("#start-project").on("click", function () {
   $("#project-modal")[0].classList.add("is-active");
@@ -65,7 +70,12 @@ $("#project-form-modal").click(function (event) {
     randomUserCall(projectTeammates);
     displayProjectName(projectTitle);
     apiSquaredCall(projectCategory);
+
     saveOK = true;
+    setTimeout(function() {
+      saveProject();
+      console.log(projects);
+    }, 500);
 
   } else alert("Please fill out all info!");
 });
@@ -76,6 +86,11 @@ $(".modal-background, .modal-close").click(function (event) {
 
   $("#project-modal")[0].classList.remove("is-active");
 });
+
+
+//*********************************************************
+// API Calls
+//*********************************************************
 
 // API API Call
 var apiSquaredCall = function (choice) {
@@ -104,6 +119,35 @@ var apiSquaredCall = function (choice) {
     }
   });
 };
+
+// Function to call random user
+var randomUserCall = function (userCount) {
+  var randUserList = [];
+  fetch("https://randomuser.me/api/1.4/?results=" + userCount).then(function (
+    response
+  ) {
+    if (response.ok) {
+      response.json().then(function (data) {
+        for (var i = 0; i < data.results.length; i++) {
+          var randomUserEntry = {
+            Name: data.results[i].name.first + " " + data.results[i].name.last,
+            Age: data.results[i].dob.age,
+            Username: data.results[i].login.username,
+            Image: data.results[i].picture.large,
+          };
+          randUserList.push(randomUserEntry);
+        }
+
+        displayUserChoices(randUserList);
+      });
+    }
+  });
+};
+
+
+//*********************************************************
+// Display
+//*********************************************************
 
 // Project Name & Story Display
 var displayProjectName = function (projectTitle) {
@@ -169,30 +213,6 @@ var displayApiChoices = function (apiChoices) {
   }
 };
 
-// Function to call random user
-var randomUserCall = function (userCount) {
-  var randUserList = [];
-  fetch("https://randomuser.me/api/1.4/?results=" + userCount).then(function (
-    response
-  ) {
-    if (response.ok) {
-      response.json().then(function (data) {
-        for (var i = 0; i < data.results.length; i++) {
-          var randomUserEntry = {
-            Name: data.results[i].name.first + " " + data.results[i].name.last,
-            Age: data.results[i].dob.age,
-            Username: data.results[i].login.username,
-            Image: data.results[i].picture.large,
-          };
-          randUserList.push(randomUserEntry);
-        }
-
-        displayUserChoices(randUserList);
-      });
-    }
-  });
-};
-
 // Display Users
 var displayUserChoices = function (randUserList) {
   currentProject.users = randUserList;
@@ -237,6 +257,11 @@ var displayUserChoices = function (randUserList) {
   }
 };
 
+
+//*********************************************************
+// SAVE/LOAD/DELETE
+//*********************************************************
+
 // Save Project to Local Storage
 var saveProject = function () {
   if (saveOK === true) {
@@ -258,6 +283,13 @@ var saveProject = function () {
     loadProjectButtons();
   }
 };
+
+$("#story-tile").on("blur", "textarea", function() {
+  console.log("we are saving");
+  saveOK = true;
+  saveProject();
+});
+
 
 // Load Project from Local Storage
 var selectProject = function (event) {
@@ -293,6 +325,9 @@ $(document).on("click", ".deleteButton", function () {
   loadProjectButtons();
 });
 
+
+//*********************************************************
+// Default Listeners
+//*********************************************************
 loadProjectButtons();
-saveButtonEl.addEventListener("click", saveProject);
 buttonPanelEl.addEventListener("click", selectProject);
