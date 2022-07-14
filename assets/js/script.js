@@ -66,6 +66,7 @@ $("#project-form-modal").click(function (event) {
     displayProjectName(projectTitle);
     apiSquaredCall(projectCategory);
     saveOK = true;
+
   } else alert("Please fill out all info!");
 });
 
@@ -95,8 +96,6 @@ var apiSquaredCall = function (choice) {
         var apiChoices = [];
         for (i = 0; i < 3; i++) {
           apiChoices.push(apiList[Math.floor(Math.random() * apiList.length)]);
-
-          //add conditional to check for duplicates
         }
 
         displayTileHeader(choice);
@@ -110,18 +109,21 @@ var apiSquaredCall = function (choice) {
 var displayProjectName = function (projectTitle) {
   currentProject.title = projectTitle;
   storyEl.innerHTML = "";
+
   var titleEl = document.createElement("p");
   var pEl = document.createElement("p");
   var subtitleEl = document.createElement("p");
-  // textAreaEl.classList = "textarea"
-  // textAreaEl.setAttribute("rows", "10");
+
   titleEl.classList = "title is-3";
-  pEl.classList = "subtitle is-5";
-  subtitleEl.classList = "subtitle is-5";
   titleEl.textContent = "About " + projectTitle;
+
+  pEl.classList = "subtitle is-5";
   pEl.innerHTML =
-    "Use the list of random users to help visualize your user story. <br> <br>Use the list of APIs to formulate a high-tech solution.";
+  "Use the list of random users to help visualize your user story. <br> <br>Use the list of APIs to formulate a high-tech solution.";
+
+  subtitleEl.classList = "subtitle is-5";
   subtitleEl.textContent = "Then, use the area below to stash your ideas!";
+
   storyEl.appendChild(titleEl);
   storyEl.appendChild(pEl);
   storyEl.appendChild(subtitleEl);
@@ -132,6 +134,7 @@ var displayProjectName = function (projectTitle) {
 var displayTileHeader = function (choice) {
   currentProject.subject = choice;
   apiEl.innerHTML = "";
+
   var titleEl = document.createElement("p");
   titleEl.classList = "title is-3";
   titleEl.textContent =
@@ -145,15 +148,20 @@ var displayApiChoices = function (apiChoices) {
   for (let i = 0; i < apiChoices.length; i++) {
     var divEl = document.createElement("article");
     divEl.classList = "my-2";
+
     var pHeadEl = document.createElement("p");
     var pSubEl = document.createElement("p");
     var aEl = document.createElement("a");
+
     aEl.setAttribute("href", apiChoices[i].Link);
     aEl.setAttribute("target", "_blank");
+
     pHeadEl.classList = "title is-4";
     pHeadEl.innerHTML = apiChoices[i].Name;
+
     pSubEl.classList = "subtitle is-5";
     pSubEl.textContent = apiChoices[i].Description;
+
     aEl.appendChild(pHeadEl);
     divEl.appendChild(aEl);
     divEl.appendChild(pSubEl);
@@ -198,24 +206,30 @@ var displayUserChoices = function (randUserList) {
     mediaEl.classList =
       "media is-justify-content-center is-flex-direction-row-reverse";
     userEl.appendChild(mediaEl);
+
     var mediaLeftEl = document.createElement("div");
     mediaLeftEl.classList = "media-left";
     mediaEl.appendChild(mediaLeftEl);
+
     var figureEl = document.createElement("figure");
     figureEl.classList = "image is-64x64";
     mediaLeftEl.appendChild(figureEl);
+
     var imgEl = document.createElement("img");
     imgEl.classList = "is-rounded";
     imgEl.setAttribute("src", randUserList[i].Image);
     imgEl.setAttribute("alt", "profile image of" + randUserList[i].Name);
     figureEl.appendChild(imgEl);
+
     var mediaContentEl = document.createElement("div");
     mediaContentEl.classList = "media-content media-left";
     mediaEl.appendChild(mediaContentEl);
+
     var nameEl = document.createElement("p");
     nameEl.classList = "title is-5";
     nameEl.textContent = randUserList[i].Name;
     mediaContentEl.appendChild(nameEl);
+
     var usernameEl = document.createElement("p");
     usernameEl.classList = "subtitle is-6";
     usernameEl.textContent = "@" + randUserList[i].Username;
@@ -249,12 +263,14 @@ var saveProject = function () {
 var selectProject = function (event) {
   textAreaEl.value = "";
   var selectedButton = event.target.textContent;
+  
   for (var i = 0; i < projects.length; i++) {
     if (selectedButton === projects[i].title) {
       displayTileHeader(projects[i].subject);
       displayApiChoices(projects[i].apis);
       displayUserChoices(projects[i].users);
       displayProjectName(projects[i].title);
+
       if (projects[i].text) {
         textAreaEl.value = projects[i].text;
       }
@@ -280,10 +296,3 @@ $(document).on("click", ".deleteButton", function () {
 loadProjectButtons();
 saveButtonEl.addEventListener("click", saveProject);
 buttonPanelEl.addEventListener("click", selectProject);
-//API Calls - Use Sparingly
-// randomUserCall(userCount);
-// apiSquaredCall("Business");
-
-// Display Samples - For Testing Purposes
-// displayUserChoices(sampleRandomUsers);
-// displayApiChoices(sampleApiChoices);
