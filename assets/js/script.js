@@ -6,7 +6,7 @@ var saveOK = "false";
 // Textarea declarations
 var textAreaEl = document.createElement("textarea");
 textAreaEl.classList = "textarea";
-textAreaEl.setAttribute("rows", "16");
+textAreaEl.setAttribute("rows", "8");
 
 // select elements to display
 var buttonPanelEl = document.getElementById("button-area");
@@ -26,12 +26,12 @@ var loadProjectButtons = function () {
       buttonPanelEl.appendChild(buttonDivEl);
 
       var newButtonEl = document.createElement("button");
-      newButtonEl.classList = "button is-primary m-2 is-medium loadButton";
+      newButtonEl.classList = "button is-primary is-medium loadButton";
       newButtonEl.textContent = projects[i].title;
       buttonDivEl.appendChild(newButtonEl);
 
       var deleteButtonEl = document.createElement("button");
-      deleteButtonEl.classList = "button is-danger m-2 is-medium deleteButton";
+      deleteButtonEl.classList = "button is-danger is-medium deleteButton";
 
       deleteButtonEl.innerHTML =
         "<span class='icon is-small'><img src='./assets/images/trash-can.png' alt='Trash Can'></span>";
@@ -158,7 +158,7 @@ var displayProjectName = function (projectTitle) {
   var pEl = document.createElement("p");
   var subtitleEl = document.createElement("p");
 
-  titleEl.classList = "title is-3";
+  titleEl.classList = "title header is-3";
   titleEl.textContent = "About " + projectTitle;
 
   pEl.classList = "subtitle is-5";
@@ -180,7 +180,7 @@ var displayTileHeader = function (choice) {
   apiEl.innerHTML = "";
 
   var titleEl = document.createElement("p");
-  titleEl.classList = "title is-3";
+  titleEl.classList = "title header is-3";
   titleEl.textContent =
     "These APIs are perfect for your " + choice + " project!";
   apiEl.appendChild(titleEl);

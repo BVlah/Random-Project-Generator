@@ -24,15 +24,15 @@
       <!-- column one (About/Begin Section & Stored Project Buttons) -->
       <div class="column is-one-third">
         <section class="section" id="about">
-          <h2 class="title">About RPG</h2>
+          <h2 class="title header">About RPG</h2>
           <p class="block">Use this app to help design your first coding project. This app will generate hypothetical
             users, a list of free APIs, an inspirational quote, and a workspace for your thoughts. Let's go!</p>
           <div class="block">
-            <button id="start-project" class="js-modal-trigger button is-info m-2 is-large is-fullwidth" data-target="project-modal">Get Started</button>
+            <button id="start-project" class="js-modal-trigger button is-info is-large is-fullwidth" data-target="project-modal">Get Started</button>
           </div>
         </section>
         <section class="section" id="past-projects">
-          <h2 class="title">Load Previous Projects</h2>
+          <h2 class="title header">Load Previous Projects</h2>
           <p class="block">You "worked" hard on these! Click a button to show them off!</p>
           <!-- These will be dynamically generated -->
           <div id="button-area"></div>
@@ -45,9 +45,10 @@
           <div class="tile is-ancestor">
             <div class="tile is-vertical is-20">
               <div class="tile">
+                <!-- User Tile -->                 
                 <div class="tile is-parent is-vertical">
                   <article id="user-tile" class="tile is-child notification is-success">
-                    <p class="title is-3">Meet the Hey Yas!</p>
+                    <p class="title header is-3">Meet the Hey Yas!</p>
                     <div class="media is-justify-content-center is-flex-direction-row-reverse">
                       <div class="media-left">
                         <figure class="image is-64x64">
@@ -109,8 +110,11 @@
                       </div>
                     </div>
                   </article>
+                </div>
+                <!-- API Tile --> 
+                <div class="tile is-parent is-vertical">
                   <article id="api-tile" class="tile is-child notification is-warning">
-                    <p class="title is-3">These are the APIs working behind the scenes on this amazing app!</p>
+                    <p class="title header is-3">These are the APIs working behind the scenes on this amazing app!</p>
                     <article class="my-3">
                       <a href="https://api.publicapis.org/" target="_blank">
                         <p class="title is-4 my-2">Public APIs</p>
@@ -127,30 +131,35 @@
                     </article>
                   </article>
                 </div>
-                <div class="tile is-parent is-vertical">
-                  <article id="story-tile" class="tile is-child notification is-info">
-                    <p class="title">Our Story</p> <br>
-                    <p class="subtitle">In the summer of 2022, a ragtag group of young developers had an idea that would
-                      change the course of Coding Boot Camps everywhere. We grappled with what our first group project
-                      should be about.</p>
-                    <p class="subtitle">What real world problem could we solve with our novice coding skills? As we
-                      struggled to come up with an idea, we realized the problem we needed to solve was right in front
-                      of us the whole time.</p>
-                    <p class="subtitle">On that day, we knew exactly what we needed to do. We created an app that helps
-                      you design your very own project in a snap!</p>
-                    <p class="subtitle">Gone are the days of endless group discussion. With this app, you won't have to
-                      worry about that anymore!</p><br>
-                  </article>
-                  <article id="quote-tile" class="tile is-child notification is-danger">
-                    <p class="title">Quote</p>
-                    <p id="quote-text" class="subtitle">"Sometimes the hardest part is just getting started"</p>
-                    <p id="quote text" class="subtitle"> "Embrace the joy of Collaboration!"</p>
-                    <p id="quote text" class="subtitle"> "Don't panic, just google it!"</p>
-                    <div id="author-text" class="content">- The Hey-Yas, with ❤</div>
-                  </article>
-                </div>
+              </div>
+              <!-- Story Tile -->
+              <div class="tile is-parent is-wide">
+                <article id="story-tile" class="tile is-child notification is-info">
+                  <p class="title header">Our Story</p> <br>
+                  <p class="subtitle">In the summer of 2022, a ragtag group of young developers had an idea that would
+                    change the course of Coding Boot Camps everywhere. We grappled with what our first group project
+                    should be about.</p>
+                  <p class="subtitle">What real world problem could we solve with our novice coding skills? As we
+                    struggled to come up with an idea, we realized the problem we needed to solve was right in front
+                    of us the whole time.</p>
+                  <p class="subtitle">On that day, we knew exactly what we needed to do. We created an app that helps
+                    you design your very own project in a snap!</p>
+                  <p class="subtitle">Gone are the days of endless group discussion. With this app, you won't have to
+                    worry about that anymore!</p><br>
+                </article>
+              </div>      
+              <!-- Quote Tile -->
+              <div class="tile is-parent is-vertical">
+                <article id="quote-tile" class="tile is-child notification is-danger">
+                  <p class="title header">Quote</p>
+                  <p class="subtitle">"Sometimes the hardest part is just getting started!"</p>
+                  <p class="subtitle"> "Embrace the joy of Collaboration!"</p>
+                  <p class="subtitle"> "Don't panic, just google it!"</p>
+                  <div class="content">- The Hey-Yas, with ❤</div>
+                </article>
               </div>
             </div>
+          </div>
         </section>
       </div>
   </main>
@@ -161,7 +170,7 @@
     <div class="modal-content">
       <div class="box">
         <form>
-          <h2 class="title">Start your Project!</h2>
+          <h2 class="title header">Start your Project!</h2>
           <div class="field">
             <label class="label">Number of Users</label>
             <div class="control">

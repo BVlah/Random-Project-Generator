@@ -1,9 +1,5 @@
 body {
     font-family: 'Abel';font-size: 22px;
-   }
-
-form h2 {
-    text-align: center;
 }
 
 a {
@@ -14,7 +10,32 @@ a:hover {
     color: gray;
 }
 
+.button.is-medium {
+    font-size: 1rem !important;
+}
+
 .loadButton {
-    width: 66%;
-    overflow-wrap: break-word; 
+    width: calc(100% - 48px);
+    white-space: normal;
+}
+
+.deleteButton {
+    width: 40px;
+}
+
+.header {
+    text-align: center;
+}
+
+
+@media screen and (min-width: 1024px) {
+    .section {
+        padding: 3rem 1.5rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .section {
+        padding: 1.5rem;
+    }
 }
