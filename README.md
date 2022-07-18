@@ -2,7 +2,7 @@
 Showcase our skills by developing an app that utilizes at least 2 APIs and one non-Bootstrap CSS library  
 
 ## Link
-https://eclevela-1234.github.io/Random-Project-Generator
+[https://eclevela-1234.github.io/Random-Project-Generator]
 
 ## Basic Functionality
 - App loads to a clean landing screen with information about the project, its contributors and api sources.
